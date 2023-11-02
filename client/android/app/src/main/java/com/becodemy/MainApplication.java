@@ -1,4 +1,4 @@
-package com.becodemy;
+package com.KajianKuy;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

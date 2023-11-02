@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "Becodemy.app"
-               BlueprintName = "Becodemy"
-               ReferencedContainer = "container:Becodemy.xcodeproj">
+               BuildableName = "KajianKuy.app"
+               BlueprintName = "KajianKuy"
+               ReferencedContainer = "container:KajianKuy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "BecodemyTests.xctest"
-               BlueprintName = "BecodemyTests"
-               ReferencedContainer = "container:Becodemy.xcodeproj">
+               BuildableName = "KajianKuyTests.xctest"
+               BlueprintName = "KajianKuyTests"
+               ReferencedContainer = "container:KajianKuy.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Becodemy.app"
-            BlueprintName = "Becodemy"
-            ReferencedContainer = "container:Becodemy.xcodeproj">
+            BuildableName = "KajianKuy.app"
+            BlueprintName = "KajianKuy"
+            ReferencedContainer = "container:KajianKuy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Becodemy.app"
-            BlueprintName = "Becodemy"
-            ReferencedContainer = "container:Becodemy.xcodeproj">
+            BuildableName = "KajianKuy.app"
+            BlueprintName = "KajianKuy"
+            ReferencedContainer = "container:KajianKuy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
