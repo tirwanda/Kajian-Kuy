@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import LoginScreen from '../src/screens/LoginScreen';
-import SignUpScreen from '../src/screens/SignupScreen';
+import LoginScreen from '../../presentation/screens/auth/LoginScreen';
+import SignUpScreen from '../../presentation/screens/auth/SignupScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 const Auth = () => {

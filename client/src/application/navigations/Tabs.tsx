@@ -1,22 +1,24 @@
-import { View, Text, Image } from 'react-native'
-import React from 'react'
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react/no-unstable-nested-components */
+import {View, Text, Image} from 'react-native';
+import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeScreen from "../src/screens/HomeScreen";
+import HomeScreen from '../../presentation/screens/home/HomeScreen';
 
-type Props = {}
+type Props = {};
 
 const Tab = createBottomTabNavigator();
 
 const Tabs = (props: Props) => {
   return (
     <Tab.Navigator
-    initialRouteName="Home"
-    screenOptions={{
-      headerShown: false,
-      tabBarShowLabel: false,
-      tabBarHideOnKeyboard: true,
-    }}>
-        <Tab.Screen
+      initialRouteName="Home"
+      screenOptions={{
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarHideOnKeyboard: true,
+      }}>
+      <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={({route}) => ({
@@ -27,14 +29,14 @@ const Tabs = (props: Props) => {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-               {/* Home Icon will be here */}
+              {/* Home Icon will be here */}
               <Text style={{color: focused ? 'crimson' : 'black'}}>Home</Text>
             </View>
           ),
         })}
       />
-  </Tab.Navigator>
-  )
-}
+    </Tab.Navigator>
+  );
+};
 
-export default Tabs
+export default Tabs;

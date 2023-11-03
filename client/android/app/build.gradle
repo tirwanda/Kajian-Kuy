@@ -73,9 +73,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.KajianKuy"
+    namespace "com.client"
     defaultConfig {
-        applicationId "com.KajianKuy"
+        applicationId "com.client"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

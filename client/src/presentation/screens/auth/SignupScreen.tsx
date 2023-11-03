@@ -12,4 +12,3 @@ const SignupScreen = (props: Props) => {
 };
 
 export default SignupScreen;
-

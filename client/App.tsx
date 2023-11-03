@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import Main from './Navigations/Main';
-import Auth from './Navigations/Auth';
+import Main from './src/application/navigations/Main';
+import Auth from './src/application/navigations/Auth';
 
 function App() {
   const [isLogin, setIsLogin] = React.useState(false);
