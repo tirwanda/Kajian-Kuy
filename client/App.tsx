@@ -4,7 +4,7 @@ import Main from './src/application/navigations/Main';
 import Auth from './src/application/navigations/Auth';
 
 function App() {
-  const [isLogin, setIsLogin] = React.useState(false);
+  const [isLogin, _] = React.useState(false);
 
   return (
     <>
