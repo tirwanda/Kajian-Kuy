@@ -1,79 +1,185 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# [Soft UI React Native](https://demos.creative-tim.com/soft-ui-react-native/index.html) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/home?status=soft-ui%20React%20Native,%20a%20cool%20NowUI%20React%20Native%20App%20Template%20%E2%9D%A4%EF%B8%8F%20https%3A//bit.ly/2KAj86H%20%23reactnative%20%23NowUI%20%23designsystem%20%23developers%20via%20%40CreativeTim)
 
-# Getting Started
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+ ![version](https://img.shields.io/badge/version-1.1.0-blue.svg)  [![GitHub issues open](https://img.shields.io/github/issues/creativetimofficial/ct-soft-ui-react-native.svg?style=flat)](https://github.com/creativetimofficial/ct-soft-ui-react-native/issues?q=is%3Aopen+is%3Aissue) [![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/creativetimofficial/ct-soft-ui-react-native.svg?maxAge=2592000)](https://github.com/creativetimofficial/ct-soft-ui-react-native/issues?q=is%3Aissue+is%3Aclosed)
 
-## Step 1: Start the Metro Server
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+![Product](https://s3.amazonaws.com/creativetim_bucket/products/490/original/opt_soft_ui_react_native_thumbnail.jpg)
 
-To start Metro, run the following command from the _root_ of your React Native project:
+Soft UI React Native is a fully coded app template built over [React Native](https://facebook.github.io/react-native/?ref=creativetim) and [Expo](https://expo.io/?ref=creativetim) to allow you to create powerful and beautiful e-commerce mobile applications. We have redesigned all the usual components in-house to make it look like Soft UI's KIT, minimalistic and easy to use.
 
-```bash
-# using npm
-npm start
+Start your development with a Design System for React Native inspired by Soft UI KIT. If you like Soft UI's KIT, you will love this react native app template! It features a huge number of components and screens built to fit together and look amazing.
 
-# OR using Yarn
-yarn start
+### FULLY CODED COMPONENTS
+
+Soft UI React Native features over 100 variations of components like buttons, inputs, cards, navigations etc, giving you the freedom of choosing and combining. All components can take variations in colour, that you can easily modify inside our theme file.
+
+You will save a lot of time going from prototyping to full-functional code, because all elements are implemented. We wanted the design process to be seamless, so switching from image to the real page is very easy to do.
+
+### Components & Cards
+Soft UI React Native comes packed with a large number of components and cards. Putting together a mobile app has never been easier than matching together different components. From the profile screen to a settings screen, you can easily customise and build your screens. We have created multiple options for you to put together and customise into pixel perfect screens.
+
+View [all components here](https://demos.creative-tim.com/soft-ui-react-native/).
+
+### Example Screens
+If you want to get inspiration or just show something directly to your clients, you can jump start your development with our pre-built example screens. From onboarding screens to profile or discover screens, you will be able to quickly set up the basic structure for your React Native mobile project.
+
+View [all screens here](https://demos.creative-tim.com/soft-ui-react-native/#screens).
+
+
+Let us know your thoughts below. And good luck with development!
+
+
+## Table of Contents
+
+* [Versions](#versions)
+* [Demo](#demo)
+* [Quick Start](#quick-start)
+* [Documentation](#documentation)
+* [File Structure](#file-structure)
+* [OS Support](#os-support)
+* [Resources](#resources)
+* [Reporting Issues](#reporting-issues)
+* [Technical Support or Questions](#technical-support-or-questions)
+* [Licensing](#licensing)
+* [Useful Links](#useful-links)
+
+## Versions
+
+[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/html-logo.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/soft-ui-kit-pro)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/react-native-logo.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/soft-ui-react-native)
+
+| HTML | React-Native  |
+| --- | --- |
+| [![Soft UI Kit](https://s3.amazonaws.com/creativetim_bucket/products/448/original/opt_sds_free_thumbnail.jpg?1614876201)](https://www.creative-tim.com/product/soft-ui-design-system)  | [![Soft UI React-Native](https://s3.amazonaws.com/creativetim_bucket/products/490/original/opt_soft_ui_react_native_thumbnail.jpg?1625576346)](https://www.creative-tim.com/product/soft-ui-react-native) |
+
+## Demo
+- [Start page](https://demos.creative-tim.com/soft-ui-react-native)
+- [Quick start](https://www.creative-tim.com/learning-lab/react-native/quick-start/soft)
+
+[View more](https://demos.creative-tim.com/soft-ui-react-native)
+
+## Quick start
+- Try it out on Expo (Simulator for iOS or even your physical device if you have an Android)
+- Download from [Creative Tim](https://www.creative-tim.com/product/soft-ui-react-native)
+
+
+## Documentation
+The documentation for the Soft UI React Native is hosted at our [website](https://www.creative-tim.com/learning-lab/react-native/overview/soft).
+
+
+## File Structure
+Within the download you'll find the following directories and files:
+
+```
+soft-ui-react-native/
+├── App.tsx
+├── README.md
+├── app.json
+├── assets
+├── babel.config.js
+├── package.json
+├── src
+│   ├── assets
+│   │   ├── fonts
+│   │   ├── icons
+│   │   └── images
+│   ├── components
+│   │   ├── Article.tsx
+│   │   ├── Block.tsx
+│   │   ├── Button.tsx
+│   │   ├── Checkbox.tsx
+│   │   ├── Image.tsx
+│   │   ├── Input.tsx
+│   │   ├── Modal.tsx
+│   │   ├── Product.tsx
+│   │   ├── Switch.tsx
+│   │   ├── Text.tsx
+│   │   └── index.tsx
+│   ├── constants
+│   │   ├── index.ts
+│   │   ├── light.ts
+│   │   ├── mocks.ts
+│   │   ├── regex.ts
+│   │   ├── theme.ts
+│   │   ├── translations
+│   │   │   ├── en.json
+│   │   │   └── index.ts
+│   │   └── types
+│   │       ├── components.ts
+│   │       ├── index.ts
+│   │       └── theme.ts
+│   ├── hooks
+│   │   ├── index.ts
+│   │   ├── useData.tsx
+│   │   ├── useScreenOptions.tsx
+│   │   ├── useTheme.tsx
+│   │   └── useTranslation.tsx
+│   ├── navigation
+│   │   ├── App.tsx
+│   │   ├── Menu.tsx
+│   │   └── Screens.tsx
+│   └── screens
+│       ├── Articles.tsx
+│       ├── Components.tsx
+│       ├── Home.tsx
+│       ├── Pro.tsx
+│       ├── Profile.tsx
+│       ├── Register.tsx
+│       └── index.ts
+└── tsconfig.json
 ```
 
-## Step 2: Start your Application
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+## OS Support
 
-### For Android
+At present, we officially aim to support the last two versions of the following operating systems:
 
-```bash
-# using npm
-npm run android
+[<img src="https://raw.githubusercontent.com/creativetimofficial/ct-material-kit-pro-react-native/master/assets/android-logo.png" width="60" height="60" />](https://www.creative-tim.com/product/soft-ui-react-native)[<img src="https://raw.githubusercontent.com/creativetimofficial/ct-material-kit-pro-react-native/master/assets/apple-logo.png" width="60" height="60" />](https://www.creative-tim.com/product/soft-ui-react-native)
 
-# OR using Yarn
-yarn android
-```
+## Resources
+- Demo: <https://demos.creative-tim.com/soft-ui-react-native>
+- Download Page: <https://www.creative-tim.com/product/soft-ui-react-native>
+- Documentation: <https://www.creative-tim.com/learning-lab/react-native/overview/soft>
+- License Agreement: <https://www.creative-tim.com/license>
+- Support: <https://www.creative-tim.com/contact-us>
+- Issues: [Github Issues Page](https://github.com/creativetimofficial/ct-soft-ui-react-native/issues)
+- [Soft UI Design System](https://www.creative-tim.com/product/soft-ui-design-system?ref=soft-uiprn-readme) - For Front End Development
 
-### For iOS
+## Reporting Issues
 
-```bash
-# using npm
-npm run ios
+We use GitHub Issues as the official bug tracker for the Soft UI React Native. Here are some advices for our users that want to report an issue:
 
-# OR using Yarn
-yarn ios
-```
+1. Make sure that you are using the latest version of the Soft UI React Native.
+2. Providing us reproducible steps for the issue will shorten the time it takes for it to be fixed.
+3. Some issues may be browser specific, so specifying in what browser you encountered the issue might help.
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+### Technical Support or Questions
 
-## Step 3: Modifying your App
+If you have questions or need help integrating the product please [contact us](https://www.creative-tim.com/contact-us) instead of opening an issue.
 
-Now that you have successfully run the app, let's modify it.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+## Licensing
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+- Copyright 2021 Creative Tim (https://www.creative-tim.com/)
+- Creative Tim [license](https://www.creative-tim.com/license)
 
-## Congratulations! :tada:
+## Useful Links
 
-You've successfully run and modified your React Native App. :partying_face:
+- [Tutorials](https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w)
+- [Affiliate Program](https://www.creative-tim.com/affiliates/new) (earn money)
+- [Blog Creative Tim](http://blog.creative-tim.com/)
+- [Free Products](https://www.creative-tim.com/bootstrap-themes/free) from Creative Tim
+- [Premium Products](https://www.creative-tim.com/bootstrap-themes/premium) from Creative Tim
+- [React Products](https://www.creative-tim.com/bootstrap-themes/react-themes) from Creative Tim
+- [Angular Products](https://www.creative-tim.com/bootstrap-themes/angular-themes) from Creative Tim
+- [VueJS Products](https://www.creative-tim.com/bootstrap-themes/vuejs-themes) from Creative Tim
+- [More products](https://www.creative-tim.com/bootstrap-themes) from Creative Tim
+- Check our Bundles [here](https://www.creative-tim.com/bundles?ref=soft-ui-github-readme)
 
-### Now what?
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+### Social Media
+Twitter: <https://twitter.com/CreativeTim>
+Facebook: <https://www.facebook.com/CreativeTim>
+Dribbble: <https://dribbble.com/creativetim>
+Instagram: <https://www.instagram.com/CreativeTimOfficial>

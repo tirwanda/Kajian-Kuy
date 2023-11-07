@@ -1,24 +1,13 @@
-import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import Main from './src/application/navigations/Main';
-import Auth from './src/application/navigations/Auth';
+import 'react-native-gesture-handler';
+import React from 'react';
 
-function App() {
-  const [isLogin, _] = React.useState(false);
+import {DataProvider} from './src/hooks';
+import AppNavigation from './src/navigation/App';
 
+export default function App() {
   return (
-    <>
-      {isLogin ? (
-        <NavigationContainer>
-          <Main />
-        </NavigationContainer>
-      ) : (
-        <NavigationContainer>
-          <Auth />
-        </NavigationContainer>
-      )}
-    </>
+    <DataProvider>
+      <AppNavigation />
+    </DataProvider>
   );
 }
-
-export default App;
