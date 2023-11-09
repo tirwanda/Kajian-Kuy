@@ -49,26 +49,25 @@
     }
   },
   "app": {
-    "name": "Soft UI",
-    "fullname": "Soft UI Kit",
+    "name": "Kajian Kuy",
+    "fullname": "Kajian Kuy",
     "native": "React Native",
-    "link": "creative-tim.com"
+    "link": "https://github.com/tirwanda/Kajian-Kuy"
   },
   "darkMode": "Dark Mode",
   "screens": {
     "home": "Home",
     "components": "Components",
-    "articles": "Articles",
-    "rental": "Rental",
+    "kajian": "Kajian",
     "profile": "Profile",
     "settings": "Settings",
-    "register": "Create account",
-    "extra": "Extra - Automotive"
+    "signin": "Sign In",
+    "register": "Create account"
   },
   "navigation": {
-    "home": "Soft UI",
+    "home": "Kajian Kuy",
     "components": "Components",
-    "articles": "Soft UI",
+    "articles": "List Kajian",
     "rentals": "Soft UI",
     "rental": "Best Deal",
     "booking": "Booking",
@@ -84,18 +83,61 @@
     "extra": "Automotive",
     "shopping": "Shopping Cart"
   },
+  "settings": {
+    "recommended": {
+      "title": "Recommended Settings",
+      "subtitle": "These are the most important settings",
+      "faceid": "Use FaceID to sign in",
+      "autolock": "Auto-Lock security",
+      "notifications": "Notifications",
+      "darkmode": "Dark Mode",
+      "language": "Language"
+    },
+    "payment": {
+      "title": "Payment Settings",
+      "subtitle": "These are the payment settings",
+      "options": "Manage Payment Options",
+      "giftcards": "Manage Gift Cards"
+    },
+    "privacy": {
+      "title": "Privacy Settings",
+      "subtitle": "Third most important settings",
+      "agreement": "User Agreement",
+      "privacy": "Privacy",
+      "about": "About"
+    },
+    "notifications": {
+      "title": "Notifications Settings",
+      "subtitle": "These are the most important settings",
+      "mentions": "Someone mentions me",
+      "follows": "Anyone follows me",
+      "comments": "Someone comments me",
+      "offers": "New Offers"
+    }
+  },
   "menu": {
     "started": "Getting Started",
     "documentation": "Documentation"
   },
+  "notifications": {
+    "title": "Notifications",
+    "read": "Read Notifications",
+    "unread": "Unread Notifications",
+    "personal": "Personal",
+    "business": "Business"
+  },
   "home": {
-    "title": "Soft UI",
+    "title": "Articles",
     "following": "Following",
     "trending": "Trending"
   },
   "register": {
     "title": "Welcome",
     "subtitle": "Register with"
+  },
+  "login": {
+    "title": "Kajian Kuy",
+    "subtitle": "Sign In with"
   },
   "profile": {
     "title": "Profile",

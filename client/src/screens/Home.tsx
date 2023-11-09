@@ -11,9 +11,9 @@ const Home = () => {
   const {assets, colors, fonts, gradients, sizes} = useTheme();
 
   const handleProducts = useCallback(
-    (tab: number) => {
-      setTab(tab);
-      setProducts(tab === 0 ? following : trending);
+    (tabProduct: number) => {
+      setTab(tabProduct);
+      setProducts(tabProduct === 0 ? following : trending);
     },
     [following, trending, setTab, setProducts],
   );

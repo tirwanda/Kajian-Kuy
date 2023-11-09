@@ -22,7 +22,7 @@ const Articles = () => {
   // update articles on category change
   useEffect(() => {
     const category = data?.categories?.find(
-      (category) => category?.id === selected?.id,
+      (value) => value?.id === selected?.id,
     );
 
     const newArticles = data?.articles?.filter(

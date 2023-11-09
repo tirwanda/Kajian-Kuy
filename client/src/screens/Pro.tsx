@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useCallback, useEffect} from 'react';
 import {Linking, StatusBar} from 'react-native';
 
@@ -15,7 +16,7 @@ const Pro = () => {
     };
   }, []);
 
-  const handleWebLink = useCallback((url) => Linking.openURL(url), []);
+  const handleWebLink = useCallback((url: string) => Linking.openURL(url), []);
 
   return (
     <Image

@@ -15,7 +15,7 @@ import {
   ViewProps,
   ViewStyle,
 } from 'react-native';
-import {BlurProps} from 'expo-blur';
+import {BlurViewProps} from 'expo-blur';
 import {LinearGradientPoint} from 'expo-linear-gradient';
 import {ISpacing, ITheme} from './theme';
 
@@ -196,12 +196,12 @@ export interface IBlockProps
    * BlueView intensity, default: 50, values accepted: 1 to 100
    * @see https://docs.expo.io/versions/latest/sdk/blur-view/#intensity
    */
-  intensity?: BlurProps['intensity'];
+  intensity?: BlurViewProps['intensity'];
   /**
    * BlueView tint color, default: 'default', values accepted: 'light', 'dark', 'default'
    * @see https://docs.expo.io/versions/latest/sdk/blur-view/#blurtint
    */
-  tint?: BlurProps['tint'];
+  tint?: BlurViewProps['tint'];
   /**
    * Renders the View position
    * @see https://reactnative.dev/docs/layout-props#position
@@ -508,6 +508,16 @@ export interface IImageProps extends ImageProps, ISpacing {
    * @see https://reactnative.dev/docs/image-style-props#tintcolor
    */
   color?: ImageStyle['tintColor'];
+  /**
+   * Renders a custom height value
+   * @see https://reactnative.dev/docs/layout-props#height
+   */
+  height?: ViewStyle['height'];
+  /**
+   * Renders a custom width value
+   * @see https://reactnative.dev/docs/layout-props#width
+   */
+  width?: ViewStyle['width'];
   /**
    * Modify the appearance and position of your components using 2D or 3D transformations
    * @see https://reactnative.dev/docs/transforms#transform

@@ -1,5 +1,6 @@
 import i18n from 'i18n-js';
 import {ImageSourcePropType} from 'react-native';
+import {CalendarProps} from 'react-native-calendars';
 import {ITheme} from './theme';
 
 export * from './components';
@@ -139,4 +140,10 @@ export interface INotification {
     | 'profile'
     | 'extras'
     | 'office';
+}
+
+export interface ICalendar extends CalendarProps {
+  dates?: any[];
+  calendar?: {start: number; end: number};
+  onClose?: (calendar?: {start?: number; end?: number}) => void;
 }
