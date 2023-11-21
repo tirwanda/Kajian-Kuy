@@ -40,9 +40,22 @@ export interface IArticle {
   location?: ILocation;
   rating?: number;
   user?: IUser;
+  type?: 'vertical' | 'horizontal';
   offers?: IProduct[];
   options?: IArticleOptions[];
   timestamp?: number;
+  onPress?: (event?: any) => void;
+}
+
+export interface IKajian {
+  id: number;
+  title?: string;
+  description?: string;
+  category?: ICategory;
+  image?: string;
+  location?: ILocation;
+  speakers?: IUser;
+  date?: number;
   onPress?: (event?: any) => void;
 }
 
@@ -63,6 +76,8 @@ export interface ILocation {
 export interface IUseData {
   isDark: boolean;
   handleIsDark: (isDark?: boolean) => void;
+  isAuthenticated: boolean;
+  handleIsAuthenticated: (isAuthenticated?: boolean) => void;
   theme: ITheme;
   setTheme: (theme?: ITheme) => void;
   user: IUser;

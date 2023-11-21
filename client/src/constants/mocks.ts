@@ -5,6 +5,7 @@ import {
   IBasket,
   ICategory,
   IExtra,
+  IKajian,
   ILocation,
   INotification,
   IProduct,
@@ -82,27 +83,26 @@ export const USERS: IUser[] = [
 ];
 
 // following cards
-export const FOLLOWING: IProduct[] = [
+export const FOLLOWING: IArticle[] = [
   {
     id: 1,
     type: 'vertical',
-    title: 'Unique activities with local experts.',
+    title: 'Tiga Tingkatan Amar Makruf Nahi Mungkar',
     image:
-      'https://images.unsplash.com/photo-1604998103924-89e012e5265a?fit=crop&w=450&q=80',
+      'https://firanda.com/wp-content/uploads/2021/11/Amar-Makruf-Nahi-Mungkar-1-350x250.png',
   },
   {
     id: 2,
     type: 'vertical',
-    title: 'The highest status people.',
-    image:
-      'https://images.unsplash.com/photo-1563492065599-3520f775eeed?fit=crop&w=450&q=80',
+    title: 'Ujub dan Riya, Jadi Senjata Setan Untuk Menjerat Orang Shalih.',
+    image: 'https://firanda.com/wp-content/uploads/2021/10/ujub-1-350x250.jpg',
   },
   {
     id: 3,
     type: 'horizontal',
-    title: 'Experiences and things to do wherever you are.',
+    title: 'Membedah Tafsir Surat Al-Kafirun dalam Menyikapi Toleransi.',
     image:
-      'https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?fit=crop&w=450&q=80',
+      'https://firanda.com/wp-content/uploads/2021/12/tafsir-surat-al-kafirun-1-750x533.png',
   },
   {
     id: 4,
@@ -114,55 +114,55 @@ export const FOLLOWING: IProduct[] = [
   {
     id: 5,
     type: 'vertical',
-    title: 'New ways to meet your business goals.',
+    title: 'Celakalah Mereka yang Curang Lagi Culas!!.',
     image:
-      'https://images.unsplash.com/photo-1497215728101-856f4ea42174?fit=crop&w=450&q=80',
+      'https://firanda.com/wp-content/uploads/2021/08/celaka-bagi-pelaku-curang-1-750x533.png',
   },
   {
     id: 6,
     type: 'horizontal',
-    title: 'Adventures - Multi day trips with meals and stays.',
+    title: 'Hati-hati Penyakit Ujub dengan Jumlah yang Banyak!!.',
     image:
-      'https://images.unsplash.com/photo-1468078809804-4c7b3e60a478?fit=crop&w=450&q=80',
+      'https://firanda.com/wp-content/uploads/2021/10/kenapa-ujub-1-350x250.png',
   },
 ];
 
 // trending cards
-export const TRENDING: IProduct[] = [
+export const TRENDING: IArticle[] = [
   {
     id: 1,
     type: 'horizontal',
-    title: 'Experiences and things to do wherever you are.',
+    title: 'Dahsyatnya Ghibah.',
     image:
-      'https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?fit=crop&w=450&q=80',
+      'https://firanda.com/wp-content/uploads/2021/10/bahaya-ghibah-1-350x250.png',
   },
   {
     id: 2,
     type: 'vertical',
-    title: 'The highest status people.',
+    title: 'Nasihat Untuk Kaum Lelaki yang Sedang Mencari Istri.',
     image:
-      'https://images.unsplash.com/photo-1563492065599-3520f775eeed?fit=crop&w=450&q=80',
+      'https://firanda.com/wp-content/uploads/2021/11/Nasihat-Untuk-Kaum-Lelaki-yang-Sedang-Mencari-Istri-1-750x533.png',
   },
   {
     id: 3,
     type: 'vertical',
-    title: 'Unique activities with local experts.',
+    title: 'Allah Tidak Menerima Sesajen yang Mengandung Kesyirikan.',
     image:
-      'https://images.unsplash.com/photo-1604998103924-89e012e5265a?fit=crop&w=450&q=80',
+      'https://firanda.com/wp-content/uploads/2022/01/sesajen-untuk-berhala-dan-jin-1-750x533.png',
   },
   {
     id: 4,
     type: 'vertical',
-    title: 'Adventures - Multi day trips with meals and stays.',
+    title: 'Tafsir Surat Al-Balad, Tafsir Juz Amma.',
     image:
-      'https://images.unsplash.com/photo-1468078809804-4c7b3e60a478?fit=crop&w=450&q=80',
+      'https://firanda.com/wp-content/uploads/2020/01/tafsri-surat-al-balad-juz-amma-1-750x535.png',
   },
   {
     id: 5,
     type: 'vertical',
-    title: 'New ways to meet your business goals.',
+    title: 'Surat Al-Fajr – Tafsir Juz ‘Amma.',
     image:
-      'https://images.unsplash.com/photo-1497215728101-856f4ea42174?fit=crop&w=450&q=80',
+      'https://firanda.com/wp-content/uploads/2019/12/tafsir-surat-al-fajr-1-750x536.png',
   },
 ];
 
@@ -257,18 +257,17 @@ export const LOCATIONS: ILocation[] = [
 ];
 
 // articles
-export const ARTICLES: IArticle[] = [
+export const ARTICLES: IKajian[] = [
   {
     id: 1,
     title: 'Flexible office space means growth.',
     description:
       'Rather than worrying about switching offices every couple years, you can instead stay in the same location.',
     category: CATEGORIES[0],
-    options: ARTICLE_OPTIONS,
     image:
       'https://images.unsplash.com/photo-1604998103924-89e012e5265a?fit=crop&w=450&q=80',
-    user: USERS[0],
-    timestamp: dayjs().unix(),
+    speakers: USERS[0],
+    date: dayjs().unix(),
   },
   {
     id: 2,
@@ -276,11 +275,10 @@ export const ARTICLES: IArticle[] = [
     description:
       'Rather than worrying about switching offices every couple years, you can instead stay.',
     category: CATEGORIES[0],
-    options: ARTICLE_OPTIONS,
     image:
       'https://images.unsplash.com/photo-1563492065599-3520f775eeed?fit=crop&w=450&q=80',
-    user: USERS[1],
-    timestamp: dayjs().unix(),
+    speakers: USERS[1],
+    date: dayjs().unix(),
   },
   {
     id: 3,
@@ -288,11 +286,10 @@ export const ARTICLES: IArticle[] = [
     description:
       'Rather than worrying about switching offices every couple years, you can instead stay in the same location.',
     category: CATEGORIES[0],
-    options: ARTICLE_OPTIONS,
     image:
       'https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?fit=crop&w=450&q=80',
-    user: USERS[2],
-    timestamp: dayjs().unix(),
+    speakers: USERS[2],
+    date: dayjs().unix(),
   },
   {
     id: 4,
@@ -300,22 +297,21 @@ export const ARTICLES: IArticle[] = [
     description:
       'Rather than worrying about switching offices every couple years, you can instead stay in the same location.',
     category: CATEGORIES[0],
-    options: ARTICLE_OPTIONS,
     image:
       'https://images.unsplash.com/photo-1497215728101-856f4ea42174?fit=crop&w=450&q=80',
-    user: USERS[3],
-    timestamp: dayjs().unix(),
+    speakers: USERS[3],
+    date: dayjs().unix(),
   },
   {
     id: 5,
     title: 'Office space means growth.',
-    description: `The mission of LinkedIn is simple: connect the world's professionals.`,
+    description:
+      "The mission of LinkedIn is simple: connect the world's professionals.",
     category: CATEGORIES[1],
-    options: ARTICLE_OPTIONS,
     image:
       'https://images.unsplash.com/photo-1596720426673-e4e14290f0cc?fit=crop&w=450&q=80',
-    user: USERS[4],
-    timestamp: dayjs().unix(),
+    speakers: USERS[4],
+    date: dayjs().unix(),
   },
   {
     id: 6,
@@ -323,11 +319,10 @@ export const ARTICLES: IArticle[] = [
     description:
       'Rather than worrying about switching offices every couple years, you can instead stay in the same location.',
     category: CATEGORIES[1],
-    options: ARTICLE_OPTIONS,
     image:
       'https://images.unsplash.com/photo-1497215728101-856f4ea42174?fit=crop&w=450&q=80',
-    user: USERS[5],
-    timestamp: dayjs().unix(),
+    speakers: USERS[5],
+    date: dayjs().unix(),
   },
   {
     id: 7,
@@ -335,11 +330,10 @@ export const ARTICLES: IArticle[] = [
     description:
       'Rather than worrying about switching offices every couple years, you can instead stay in the same location.',
     category: CATEGORIES[1],
-    options: ARTICLE_OPTIONS,
     image:
       'https://images.unsplash.com/photo-1497215728101-856f4ea42174?fit=crop&w=450&q=80',
-    user: USERS[6],
-    timestamp: dayjs().unix(),
+    speakers: USERS[6],
+    date: dayjs().unix(),
   },
   {
     id: 8,
@@ -347,11 +341,10 @@ export const ARTICLES: IArticle[] = [
     description:
       'Rather than worrying about switching offices every couple years, you can instead stay in the same location.',
     category: CATEGORIES[2],
-    options: ARTICLE_OPTIONS,
     image:
       'https://images.unsplash.com/photo-1497215728101-856f4ea42174?fit=crop&w=450&q=80',
-    user: USERS[1],
-    timestamp: dayjs().unix(),
+    speakers: USERS[1],
+    date: dayjs().unix(),
   },
   {
     id: 9,
@@ -359,11 +352,10 @@ export const ARTICLES: IArticle[] = [
     description:
       'Rather than worrying about switching offices every couple years, you can instead stay in the same location.',
     category: CATEGORIES[2],
-    options: ARTICLE_OPTIONS,
     image:
       'https://images.unsplash.com/photo-1497215728101-856f4ea42174?fit=crop&w=450&q=80',
-    user: USERS[5],
-    timestamp: dayjs().unix(),
+    speakers: USERS[5],
+    date: dayjs().unix(),
   },
   {
     id: 10,
@@ -371,46 +363,42 @@ export const ARTICLES: IArticle[] = [
     description:
       'Rather than worrying about switching offices every couple years, you can instead stay in the same location.',
     category: CATEGORIES[2],
-    options: ARTICLE_OPTIONS,
     image:
       'https://images.unsplash.com/photo-1497215728101-856f4ea42174?fit=crop&w=450&q=80',
-    user: USERS[6],
-    timestamp: dayjs().unix(),
+    speakers: USERS[6],
+    date: dayjs().unix(),
   },
   {
     id: 11,
     description:
       'A great to stay in Paris without feeling you are in the city!',
     category: CATEGORIES[3], // best deal
-    options: ARTICLE_OPTIONS,
     image:
       'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?fit=crop&w=450&q=80',
     location: LOCATIONS[0],
-    rating: 4.9,
-    timestamp: dayjs().unix(),
+    speakers: USERS[6],
+    date: dayjs().unix(),
   },
   {
     id: 12,
     description: 'Best Italy location in a bustling neighbourhood, 2 min.',
     category: CATEGORIES[3], // best deal
-    options: ARTICLE_OPTIONS,
     image:
       'https://images.unsplash.com/photo-1529154036614-a60975f5c760?fit=crop&w=450&q=80',
     location: LOCATIONS[1],
-    rating: 4.5,
-    timestamp: dayjs().unix(),
+    speakers: USERS[5],
+    date: dayjs().unix(),
   },
   {
     id: 13,
     description:
       'The most beautiful and complex UI Kits built by Creative Tim.',
     category: CATEGORIES[3], // best deal
-    options: ARTICLE_OPTIONS,
     image:
       'https://images.unsplash.com/photo-1486299267070-83823f5448dd?fit=crop&w=450&q=80',
     location: LOCATIONS[2],
-    rating: 4.8,
-    timestamp: dayjs().unix(),
+    speakers: USERS[4],
+    date: dayjs().unix(),
   },
 ];
 

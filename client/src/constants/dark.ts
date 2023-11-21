@@ -112,7 +112,7 @@ export const SIZES: ThemeSizes = {
 
   // button sizes
   buttonBorder: 1,
-  buttonRadius: 0,
+  buttonRadius: 8,
   socialSize: 64,
   socialRadius: 16,
   socialIconSize: 26,
@@ -127,15 +127,15 @@ export const SIZES: ThemeSizes = {
   // input sizes
   inputHeight: 46,
   inputBorder: 1,
-  inputRadius: 0,
+  inputRadius: 8,
   inputPadding: 12,
 
   // card sizes
-  cardRadius: 0,
+  cardRadius: 16,
   cardPadding: 12,
 
   // image sizes
-  imageRadius: 0,
+  imageRadius: 14,
   avatarSize: 32,
   avatarRadius: 8,
 
@@ -147,7 +147,7 @@ export const SIZES: ThemeSizes = {
   // checkbox sizes
   checkboxWidth: 18,
   checkboxHeight: 18,
-  checkboxRadius: 0,
+  checkboxRadius: 5,
   checkboxIconWidth: 10,
   checkboxIconHeight: 8,
 

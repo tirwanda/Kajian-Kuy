@@ -1,15 +1,17 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Platform, StatusBar} from 'react-native';
 import {useFonts} from 'expo-font';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import * as SplashScreen from 'expo-splash-screen';
 import Menu from './Menu';
 import {useData, ThemeProvider, TranslationProvider} from '../hooks';
+import MenuAuthenticated from './MenuAuthenticated';
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 export default () => {
   const {isDark, theme, setTheme} = useData();
+  const [isLogin] = useState(false);
 
   /* set the status bar based on isDark constant */
   useEffect(() => {
@@ -57,9 +59,15 @@ export default () => {
   return (
     <TranslationProvider>
       <ThemeProvider theme={theme} setTheme={setTheme}>
-        <NavigationContainer theme={navigationTheme}>
-          <Menu />
-        </NavigationContainer>
+        {isLogin ? (
+          <NavigationContainer theme={navigationTheme}>
+            <MenuAuthenticated />
+          </NavigationContainer>
+        ) : (
+          <NavigationContainer theme={navigationTheme}>
+            <Menu />
+          </NavigationContainer>
+        )}
       </ThemeProvider>
     </TranslationProvider>
   );

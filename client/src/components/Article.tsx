@@ -6,19 +6,18 @@ import Text from './Text';
 import Block from './Block';
 import Image from './Image';
 import {useTheme, useTranslation} from '../hooks';
-import {IArticle} from '../constants/types';
+import {IKajian} from '../constants/types';
 
 const Article = ({
   title,
   description,
   image,
   category,
-  rating,
   location,
-  timestamp,
-  user,
+  date,
+  speakers,
   onPress,
-}: IArticle) => {
+}: IKajian) => {
   const {t} = useTranslation();
   const {colors, gradients, icons, sizes} = useTheme();
 
@@ -54,22 +53,22 @@ const Article = ({
           )}
 
           {/* user details */}
-          {user?.name && (
+          {speakers?.name && (
             <Block row marginLeft={sizes.xs} marginBottom={sizes.xs}>
               <Image
                 radius={sizes.s}
                 width={sizes.xl}
                 height={sizes.xl}
-                source={{uri: user?.avatar}}
+                source={{uri: speakers?.avatar}}
                 style={{backgroundColor: colors.white}}
               />
               <Block justify="center" marginLeft={sizes.s}>
                 <Text p semibold>
-                  {user?.name}
+                  {speakers?.name}
                 </Text>
                 <Text p gray>
                   {t('common.posted', {
-                    date: dayjs(timestamp).format('DD MMMM') || '-',
+                    date: dayjs(date).format('DD MMMM') || '-',
                   })}
                 </Text>
               </Block>
@@ -77,7 +76,7 @@ const Article = ({
           )}
 
           {/* location & rating */}
-          {(Boolean(location) || Boolean(rating)) && (
+          {Boolean(location) && (
             <Block row align="center">
               <Image source={icons.location} marginRight={sizes.s} />
               <Text p size={12} semibold>
@@ -87,9 +86,6 @@ const Article = ({
                 •
               </Text>
               <Image source={icons.star} marginRight={sizes.s} />
-              <Text p size={12} semibold>
-                {rating}/5
-              </Text>
             </Block>
           )}
         </Block>
@@ -119,15 +115,15 @@ const Article = ({
                 radius={sizes.s}
                 width={sizes.xl}
                 height={sizes.xl}
-                source={{uri: user?.avatar}}
+                source={{uri: speakers?.avatar}}
                 style={{backgroundColor: colors.white}}
               />
               <Block justify="center" marginLeft={sizes.s}>
                 <Text p white semibold>
-                  {user?.name}
+                  {speakers?.name}
                 </Text>
                 <Text p white>
-                  {user?.department}
+                  {speakers?.department}
                 </Text>
               </Block>
             </Block>

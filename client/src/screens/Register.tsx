@@ -1,10 +1,12 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Linking, Platform} from 'react-native';
+import {Alert, Linking, Platform} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
 import {useData, useTheme, useTranslation} from '../hooks';
 import * as regex from '../constants/regex';
 import {Block, Button, Input, Image, Text, Checkbox} from '../components';
+import {useDispatch, useSelector} from 'react-redux';
+import {registerUser} from '../redux/actions/userAction';
 
 const isAndroid = Platform.OS === 'android';
 
@@ -22,9 +24,11 @@ interface IRegistrationValidation {
 }
 
 const Register = () => {
+  const dispatch = useDispatch();
   const {isDark} = useData();
   const {t} = useTranslation();
   const navigation = useNavigation();
+  const {error, isAuthenticated} = useSelector((state: any) => state.user);
   const [isValid, setIsValid] = useState<IRegistrationValidation>({
     name: false,
     email: false,
@@ -49,9 +53,18 @@ const Register = () => {
   const handleSignUp = useCallback(() => {
     if (!Object.values(isValid).includes(false)) {
       /** send/save registratin data */
-      console.log('handleSignUp', registration);
+      console.log('Send Registration for: ', registration.email);
+      registerUser(
+        registration.name,
+        registration.email,
+        registration.password,
+        registration.agreed,
+      )(dispatch);
     }
-  }, [isValid, registration]);
+    if (error) {
+      Alert.alert(error);
+    }
+  }, [error, isValid, registration, dispatch]);
 
   useEffect(() => {
     setIsValid((state) => ({
@@ -62,6 +75,12 @@ const Register = () => {
       agreed: registration.agreed,
     }));
   }, [registration, setIsValid]);
+
+  useEffect(() => {
+    if (isAuthenticated === true) {
+      navigation.navigate('Home');
+    }
+  }, [isAuthenticated, navigation]);
 
   return (
     <Block safe marginTop={sizes.md}>

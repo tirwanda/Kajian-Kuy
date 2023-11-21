@@ -74,6 +74,7 @@ export const COLORS: ThemeColors = {
 
   /** product link color */
   link: '#CB0C9F',
+  primaryDark: '#005b96',
 };
 
 export const GRADIENTS: ThemeGradients = {
