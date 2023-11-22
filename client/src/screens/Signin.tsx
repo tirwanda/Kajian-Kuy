@@ -1,11 +1,12 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {useCallback, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {useData, useTheme, useTranslation} from '../hooks';
-import {Block, Button, Image, Input, Text} from '../components';
-import {Platform} from 'react-native';
+import {Block, Button, Checkbox, Image, Input, Text} from '../components';
+import {Alert, Platform} from 'react-native';
 
 import * as regex from '../constants/regex';
+import {signInUser} from '../redux/actions/userAction';
+import {useDispatch, useSelector} from 'react-redux';
 
 const isAndroid = Platform.OS === 'android';
 
@@ -23,6 +24,8 @@ interface ILoginValidation {
 
 const Signin = () => {
   const {isDark} = useData();
+  const dispatch = useDispatch();
+  const {error, isAuthenticated} = useSelector((state: any) => state.user);
   const {t} = useTranslation();
   const navigation = useNavigation();
 
@@ -49,8 +52,11 @@ const Signin = () => {
 
   const handleSignIn = useCallback(() => {
     /** send/save registratin data */
-    console.log('handleSignIn', login);
-  }, [login]);
+    signInUser(login.email, login.password)(dispatch);
+    if (error) {
+      Alert.alert(error);
+    }
+  }, [dispatch, login, error]);
 
   useEffect(() => {
     setIsValid((state) => ({
@@ -60,6 +66,12 @@ const Signin = () => {
       agreed: login.agreed,
     }));
   }, [login, setIsValid]);
+
+  useEffect(() => {
+    if (isAuthenticated === true) {
+      navigation.navigate('Home');
+    }
+  }, [isAuthenticated, navigation]);
 
   return (
     <Block safe marginTop={sizes.md}>
@@ -194,6 +206,17 @@ const Signin = () => {
                   success={Boolean(login.password && isValid.password)}
                   danger={Boolean(login.password && !isValid.password)}
                 />
+              </Block>
+              <Block row flex={0} align="center" paddingHorizontal={sizes.sm}>
+                <Checkbox
+                  marginRight={sizes.sm}
+                  checked={login?.agreed}
+                  onPress={(value) => handleChange({agreed: value})}
+                />
+                <Text paddingRight={sizes.s}>
+                  {t('common.agree')}
+                  <Text semibold>{t('common.terms')}</Text>
+                </Text>
               </Block>
               <Button
                 onPress={handleSignIn}

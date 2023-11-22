@@ -1,7 +1,8 @@
 import axios from 'axios';
 import URI from '../URI';
 import {Dispatch} from 'redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
+import {TOKEN, USER} from '../../constants';
 
 export const registerUser =
   (name: string, email: string, password: string, agreed: boolean) =>
@@ -20,7 +21,8 @@ export const registerUser =
 
       dispatch({type: 'userRegistrationSuccess', payload: data.user});
       const user = JSON.stringify(data.user);
-      await AsyncStorage.setItem('user', user);
+      await SecureStore.setItemAsync(USER, user);
+      await SecureStore.setItemAsync(TOKEN, data.token);
     } catch (error: any) {
       dispatch({
         type: 'userRegistrationFailed',
@@ -34,9 +36,22 @@ export const loadUser = () => async (dispatch: Dispatch<any>) => {
     dispatch({
       type: 'userLoadRequest',
     });
-    const {data} = await axios.get(`${URI}/me`);
 
-    dispatch({type: 'userLoadSuccess', payload: data.user});
+    const token = await SecureStore.getItemAsync(TOKEN);
+
+    if (token != null) {
+      const {data} = await axios.get(`${URI}/me`, {
+        headers: {Authorization: `Bearer ${token}`},
+      });
+
+      dispatch({
+        type: 'userLoadSuccess',
+        payload: {
+          user: data.user,
+          token,
+        },
+      });
+    }
   } catch (error: any) {
     dispatch({
       type: 'userLoadFailed',
@@ -44,3 +59,32 @@ export const loadUser = () => async (dispatch: Dispatch<any>) => {
     });
   }
 };
+
+export const signInUser =
+  (email: string, password: string) => async (dispatch: Dispatch<any>) => {
+    try {
+      dispatch({
+        type: 'userSignInRequest',
+      });
+
+      const config = {headers: {'Content-Type': 'application/json'}};
+
+      const {data} = await axios.post(
+        `${URI}/signin`,
+        {email, password},
+        config,
+      );
+      dispatch({
+        type: 'userSignInSuccess',
+        payload: data.user,
+      });
+      if (data.token) {
+        await SecureStore.setItemAsync(TOKEN, data.token);
+      }
+    } catch (error: any) {
+      dispatch({
+        type: 'userSignInFailed',
+        payload: error.response.data.message,
+      });
+    }
+  };

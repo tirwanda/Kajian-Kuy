@@ -52,8 +52,6 @@ const Register = () => {
 
   const handleSignUp = useCallback(() => {
     if (!Object.values(isValid).includes(false)) {
-      /** send/save registratin data */
-      console.log('Send Registration for: ', registration.email);
       registerUser(
         registration.name,
         registration.email,

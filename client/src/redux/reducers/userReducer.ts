@@ -36,5 +36,19 @@ export const userReducer = createReducer(initialState, (builder) => {
       state.loading = false;
       state.isAuthenticated = false;
       state.user = action.payload;
+    })
+    .addCase('userSignInRequest', (state) => {
+      state.loading = true;
+      state.isAuthenticated = false;
+    })
+    .addCase('userSignInSuccess', (state, action: any) => {
+      state.loading = false;
+      state.isAuthenticated = true;
+      state.user = action.payload;
+    })
+    .addCase('userSignInFailed', (state) => {
+      state.loading = false;
+      state.isAuthenticated = false;
+      state.user = {};
     });
 });
