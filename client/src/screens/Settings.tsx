@@ -20,7 +20,15 @@ const Settings = () => {
       contentContainerStyle={{paddingBottom: sizes.xxl}}>
       {/* settings */}
       <Block card padding={sizes.sm} marginBottom={sizes.sm}>
-        <Block row align="center" marginBottom={sizes.m}>
+        <Block row justify="flex-start" marginBottom={sizes.s}>
+          <Block
+            flex={0}
+            radius={6}
+            width={sizes.md}
+            height={sizes.md}
+            marginRight={sizes.sm}>
+            <Image radius={0} width={40} height={40} source={assets.gear} />
+          </Block>
           <Block>
             <Text semibold>{t('settings.recommended.title')}</Text>
             <Text size={12}>{t('settings.recommended.subtitle')}</Text>
@@ -76,39 +84,18 @@ const Settings = () => {
           />
         </Button>
       </Block>
-      {/* payment */}
-      <Block card padding={sizes.sm} marginBottom={sizes.sm}>
-        <Block row align="center" marginBottom={sizes.s}>
-          <Block>
-            <Text semibold>{t('settings.payment.title')}</Text>
-            <Text size={12}>{t('settings.payment.subtitle')}</Text>
-          </Block>
-        </Block>
-        <Button row align="center" justify="space-between">
-          <Text>{t('settings.payment.options')}</Text>
-          <Image
-            source={assets.arrow}
-            color={colors.icon}
-            radius={0}
-            height={18}
-            width={10}
-          />
-        </Button>
-        <Button row align="center" justify="space-between">
-          <Text>{t('settings.payment.giftcards')}</Text>
-          <Image
-            source={assets.arrow}
-            color={colors.icon}
-            radius={0}
-            height={18}
-            width={10}
-          />
-        </Button>
-      </Block>
 
       {/* privacy */}
       <Block card padding={sizes.sm} marginBottom={sizes.sm}>
-        <Block row align="center" marginBottom={sizes.s}>
+        <Block row justify="flex-start" marginBottom={sizes.s}>
+          <Block
+            flex={0}
+            radius={6}
+            width={sizes.md}
+            height={sizes.md}
+            marginRight={sizes.sm}>
+            <Image radius={0} width={40} height={40} source={assets.privacy} />
+          </Block>
           <Block>
             <Text semibold>{t('settings.privacy.title')}</Text>
             <Text size={12}>{t('settings.privacy.subtitle')}</Text>

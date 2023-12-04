@@ -95,6 +95,27 @@ export default () => {
         </Button>
       ),
     },
+    notifications: {
+      ...menu,
+      headerRight: () => null,
+      headerLeft: () => (
+        <Button
+          onPress={() =>
+            navigation.navigate('Screens', {
+              screen: 'Settings',
+            })
+          }>
+          <Image
+            radius={0}
+            width={10}
+            height={18}
+            color={colors.icon}
+            source={icons.arrow}
+            transform={[{rotate: '180deg'}]}
+          />
+        </Button>
+      ),
+    },
     back: {
       ...menu,
       headerRight: () => null,

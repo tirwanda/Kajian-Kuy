@@ -31,6 +31,37 @@ export const registerUser =
     }
   };
 
+export const updateProfile =
+  (name: string, title: string, email: string, bio: string, avatar: string) =>
+  async (dispatch: Dispatch<any>) => {
+    try {
+      dispatch({
+        type: 'updateProfileRequest',
+      });
+
+      // const config = {headers: {'Content-Type': 'application/json'}};
+      const token = await SecureStore.getItemAsync(TOKEN);
+      const {data} = await axios.put(
+        `${URI}/update-profile`,
+        {name, title, email, bio, avatar},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      dispatch({type: 'updateProfileSuccess', payload: data.user});
+      const user = JSON.stringify(data.user);
+      await SecureStore.setItemAsync(USER, user);
+    } catch (error: any) {
+      dispatch({
+        type: 'updateProfileFailed',
+        payload: error.response.data.message,
+      });
+    }
+  };
+
 export const loadUser = () => async (dispatch: Dispatch<any>) => {
   try {
     dispatch({

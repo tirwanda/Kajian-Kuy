@@ -22,22 +22,14 @@ const userSchema = new mongoose.Schema(
 			},
 			url: {
 				type: String,
+				default: '',
 			},
 		},
-		followers: [
-			{
-				userId: {
-					type: String,
-				},
-			},
-		],
-		following: [
-			{
-				userId: {
-					type: String,
-				},
-			},
-		],
+		role: { type: String, default: 'ROLE_USER' },
+		title: { type: String, default: '' },
+		bio: { type: String, default: '' },
+		saveArticles: [{ type: mongoose.Types.ObjectId, ref: 'Article' }],
+		subscriptions: [{ type: mongoose.Types.ObjectId, ref: 'Channel' }],
 	},
 	{ timestamps: true }
 );

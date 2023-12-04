@@ -32,7 +32,7 @@ export interface IArticleOptions {
   image?: string;
 }
 export interface IArticle {
-  id?: number;
+  id: number;
   title?: string;
   description?: string;
   category?: ICategory;

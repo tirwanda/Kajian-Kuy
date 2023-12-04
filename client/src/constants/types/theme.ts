@@ -243,6 +243,8 @@ export interface ThemeIcons {
   train: ImageSourcePropType;
   users: ImageSourcePropType;
   warning: ImageSourcePropType;
+  gear: ImageSourcePropType;
+  privacy: ImageSourcePropType;
 }
 
 export interface ThemeAssets {

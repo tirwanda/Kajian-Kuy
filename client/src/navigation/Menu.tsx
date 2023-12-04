@@ -87,7 +87,6 @@ const DrawerContent = (
     {name: t('screens.home'), to: 'Home', icon: assets.home},
     {name: t('screens.components'), to: 'Components', icon: assets.components},
     {name: t('screens.kajian'), to: 'Articles', icon: assets.document},
-    {name: t('screens.profile'), to: 'Profile', icon: assets.profile},
     {name: t('screens.settings'), to: 'Settings', icon: assets.settings},
     {name: t('screens.signin'), to: 'Signin', icon: assets.users},
     {name: t('screens.register'), to: 'Register', icon: assets.register},
@@ -104,14 +103,14 @@ const DrawerContent = (
         <Block flex={0} row align="center" marginBottom={sizes.l}>
           <Image
             radius={0}
-            width={33}
-            height={33}
+            width={80}
+            height={80}
             color={colors.text}
             source={assets.logo}
             marginRight={sizes.sm}
           />
           <Block>
-            <Text size={12} semibold>
+            <Text size={16} semibold>
               {t('app.name')}
             </Text>
           </Block>

@@ -1,18 +1,20 @@
-const ErrorHandler = require("../utils/ErrorHandler.js");
-const catchAsyncErrors = require("./catchAsyncErrors.js");
-const jwt = require("jsonwebtoken");
-const User = require("../models/UserModel.js");
+const ErrorHandler = require('../utils/ErrorHandler.js');
+const catchAsyncErrors = require('./catchAsyncErrors.js');
+const jwt = require('jsonwebtoken');
+const User = require('../models/UserModel.js');
 
 exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
-  const { token } = req.cookies;
+	const authHeader = req.headers.authorization;
+	if (
+		!authHeader ||
+		authHeader === 'Bearer undefined' ||
+		!authHeader.startsWith('Bearer ')
+	) {
+		return next(new ErrorHandler('Please login to continue', 401));
+	}
 
-  if (!token) {
-    return next(new ErrorHandler("Please Login for access this resource", 401));
-  }
-
-  const decodedData = jwt.verify(token, process.env.JWT_SECRET_KEY);
-
-  req.user = await User.findById(decodedData.id);
-
-  next();
+	const token = authHeader.split(' ')[1];
+	const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+	req.user = await User.findById(decoded.id);
+	next();
 });

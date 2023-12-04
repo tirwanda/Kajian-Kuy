@@ -1,18 +1,18 @@
-import React, {useCallback} from 'react';
-import {Platform, Linking} from 'react-native';
-import {Ionicons} from '@expo/vector-icons';
+import React, {useEffect} from 'react';
+import {Alert, Platform} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
 import {Block, Button, Image, Text} from '../components';
-import {useData, useTheme, useTranslation} from '../hooks';
+import {useTheme, useTranslation} from '../hooks';
+import {useSelector} from 'react-redux';
 
 const isAndroid = Platform.OS === 'android';
 
 const Profile = () => {
-  const {user} = useData();
   const {t} = useTranslation();
   const navigation = useNavigation();
   const {assets, colors, sizes} = useTheme();
+  const {isAuthenticated, user} = useSelector((state: any) => state.user);
 
   const IMAGE_SIZE = (sizes.width - (sizes.padding + sizes.sm) * 2) / 3;
   const IMAGE_VERTICAL_SIZE =
@@ -21,21 +21,14 @@ const Profile = () => {
   const IMAGE_VERTICAL_MARGIN =
     (sizes.width - (IMAGE_VERTICAL_SIZE + sizes.sm) * 2) / 2;
 
-  const handleSocialLink = useCallback(
-    (type: 'twitter' | 'dribbble') => {
-      const url =
-        type === 'twitter'
-          ? `https://twitter.com/${user?.social?.twitter}`
-          : `https://dribbble.com/${user?.social?.dribbble}`;
+  const blankAvatar = require('../assets/images/blank-avatar.png');
 
-      try {
-        Linking.openURL(url);
-      } catch (error) {
-        alert(`Cannot open URL: ${url}`);
-      }
-    },
-    [user],
-  );
+  useEffect(() => {
+    if (!isAuthenticated) {
+      Alert.alert('You are not logged in');
+      navigation.navigate('Home');
+    }
+  }, [isAuthenticated, navigation]);
 
   return (
     <Block safe marginTop={sizes.md}>
@@ -52,81 +45,63 @@ const Profile = () => {
             paddingBottom={sizes.l}
             radius={sizes.cardRadius}
             source={assets.background}>
-            <Button
+            <Block
               row
               flex={0}
-              justify="flex-start"
-              onPress={() => navigation.goBack()}>
-              <Image
-                radius={0}
-                width={10}
-                height={18}
-                color={colors.white}
-                source={assets.arrow}
-                transform={[{rotate: '180deg'}]}
-              />
-              <Text p white marginLeft={sizes.s}>
-                {t('profile.title')}
-              </Text>
-            </Button>
-            <Block flex={0} align="center">
-              <Image
-                width={64}
-                height={64}
-                marginBottom={sizes.sm}
-                source={{uri: user?.avatar}}
-              />
+              intensity={100}
+              overflow="hidden"
+              justify="space-between"
+              renderToHardwareTextureAndroid>
+              <Button
+                row
+                flex={0}
+                justify="flex-start"
+                onPress={() => navigation.goBack()}>
+                <Image
+                  radius={0}
+                  width={10}
+                  height={18}
+                  color={colors.white}
+                  source={assets.arrow}
+                  transform={[{rotate: '180deg'}]}
+                />
+                <Text p white marginLeft={sizes.s}>
+                  {t('common.goBack')}
+                </Text>
+              </Button>
+              <Button
+                row
+                flex={0}
+                justify="flex-end"
+                onPress={() => navigation.navigate('EditProfile')}>
+                <Text p white marginLeft={sizes.s}>
+                  {t('profile.editProfile')}
+                </Text>
+              </Button>
+            </Block>
+            <Block flex={0} align="center" marginVertical={sizes.m}>
+              {user.avatar.url !== '' ? (
+                <Image
+                  width={64}
+                  height={64}
+                  marginBottom={sizes.sm}
+                  source={{uri: user.avatar.url}}
+                />
+              ) : (
+                <Image
+                  width={64}
+                  height={64}
+                  marginBottom={sizes.sm}
+                  source={blankAvatar}
+                />
+              )}
+
               <Text h5 center white>
                 {user?.name}
               </Text>
               <Text p center white>
-                {user?.department}
+                {user?.title || ''}
               </Text>
-              <Block row marginVertical={sizes.m}>
-                <Button
-                  white
-                  outlined
-                  shadow={false}
-                  radius={sizes.m}
-                  onPress={() => {
-                    alert(`Follow ${user?.name}`);
-                  }}>
-                  <Block
-                    justify="center"
-                    radius={sizes.m}
-                    paddingHorizontal={sizes.m}
-                    color="rgba(255,255,255,0.2)">
-                    <Text white bold transform="uppercase">
-                      {t('common.follow')}
-                    </Text>
-                  </Block>
-                </Button>
-                <Button
-                  shadow={false}
-                  radius={sizes.m}
-                  marginHorizontal={sizes.sm}
-                  color="rgba(255,255,255,0.2)"
-                  outlined={String(colors.white)}
-                  onPress={() => handleSocialLink('twitter')}>
-                  <Ionicons
-                    size={18}
-                    name="logo-twitter"
-                    color={colors.white}
-                  />
-                </Button>
-                <Button
-                  shadow={false}
-                  radius={sizes.m}
-                  color="rgba(255,255,255,0.2)"
-                  outlined={String(colors.white)}
-                  onPress={() => handleSocialLink('dribbble')}>
-                  <Ionicons
-                    size={18}
-                    name="logo-dribbble"
-                    color={colors.white}
-                  />
-                </Button>
-              </Block>
             </Block>
           </Image>
 
@@ -150,16 +125,14 @@ const Profile = () => {
               paddingVertical={sizes.sm}
               renderToHardwareTextureAndroid>
               <Block align="center">
-                <Text h5>{user?.stats?.posts}</Text>
-                <Text>{t('profile.posts')}</Text>
-              </Block>
-              <Block align="center">
-                <Text h5>{(user?.stats?.followers || 0) / 1000}k</Text>
-                <Text>{t('profile.followers')}</Text>
+                <Text h5>
+                  {user.saveArticles ? user.saveArticles.length : '0'}
+                </Text>
+                <Text>{t('profile.saveArticle')}</Text>
               </Block>
               <Block align="center">
                 <Text h5>{(user?.stats?.following || 0) / 1000}k</Text>
-                <Text>{t('profile.following')}</Text>
+                <Text>{t('profile.subscriptions')}</Text>
               </Block>
             </Block>
           </Block>
@@ -167,10 +140,10 @@ const Profile = () => {
           {/* profile: about me */}
           <Block paddingHorizontal={sizes.sm}>
             <Text h5 semibold marginBottom={sizes.s} marginTop={sizes.sm}>
-              {t('profile.aboutMe')}
+              {t('profile.bio')}
             </Text>
             <Text p lineHeight={26}>
-              {user?.about}
+              {user?.bio}
             </Text>
           </Block>
 
@@ -178,7 +151,7 @@ const Profile = () => {
           <Block paddingHorizontal={sizes.sm} marginTop={sizes.s}>
             <Block row align="center" justify="space-between">
               <Text h5 semibold>
-                {t('common.album')}
+                {t('profile.saveArticle')}
               </Text>
               <Button>
                 <Text p primary semibold>

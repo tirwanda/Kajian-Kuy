@@ -6,12 +6,14 @@ import {
   Components,
   Home,
   Profile,
+  EditProfile,
   Register,
   Signin,
   Settings,
   NotificationsSettings,
   Notifications,
   Pro,
+  ChangePassword,
 } from '../screens';
 import {useScreenOptions, useTranslation} from '../hooks';
 
@@ -50,9 +52,21 @@ export default () => {
       />
 
       <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen
+        name="ChangePassword"
+        component={ChangePassword}
+        options={{title: t('common.changePassword')}}
+      />
+
+      <Stack.Screen
         name="Settings"
         component={Settings}
-        options={{headerShown: false}}
+        options={{title: t('navigation.settings')}}
       />
 
       <Stack.Screen
@@ -64,7 +78,7 @@ export default () => {
       <Stack.Screen
         name="Notifications"
         component={Notifications}
-        options={{headerShown: false}}
+        options={screenOptions.notifications}
       />
 
       <Stack.Screen
