@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, Platform} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
-import {Block, Button, Image, Text} from '../components';
-import {useTheme, useTranslation} from '../hooks';
+import {Block, Button, Image, Product, Text} from '../components';
+import {useData, useTheme, useTranslation} from '../hooks';
 import {useSelector} from 'react-redux';
 
 const isAndroid = Platform.OS === 'android';
@@ -13,13 +13,8 @@ const Profile = () => {
   const navigation = useNavigation();
   const {assets, colors, sizes} = useTheme();
   const {isAuthenticated, user} = useSelector((state: any) => state.user);
-
-  const IMAGE_SIZE = (sizes.width - (sizes.padding + sizes.sm) * 2) / 3;
-  const IMAGE_VERTICAL_SIZE =
-    (sizes.width - (sizes.padding + sizes.sm) * 2) / 2;
-  const IMAGE_MARGIN = (sizes.width - IMAGE_SIZE * 3 - sizes.padding * 2) / 2;
-  const IMAGE_VERTICAL_MARGIN =
-    (sizes.width - (IMAGE_VERTICAL_SIZE + sizes.sm) * 2) / 2;
+  const {following} = useData();
+  const [articles] = useState(following);
 
   const blankAvatar = require('../assets/images/blank-avatar.png');
 
@@ -34,7 +29,7 @@ const Profile = () => {
     <Block safe marginTop={sizes.md}>
       <Block
         scroll
-        paddingHorizontal={sizes.s}
+        // paddingHorizontal={sizes.s}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: sizes.padding}}>
         <Block flex={0}>
@@ -116,20 +111,18 @@ const Profile = () => {
               paddingVertical={sizes.sm}
               renderToHardwareTextureAndroid>
               <Block align="center">
-                <Text h5>
-                  {user.saveArticles ? user.saveArticles.length : '0'}
-                </Text>
+                <Text h5>{user.saveArticles.length}</Text>
                 <Text>{t('profile.saveArticle')}</Text>
               </Block>
               <Block align="center">
-                <Text h5>{(user?.stats?.following || 0) / 1000}k</Text>
+                <Text h5>{user.subscriptions.length}</Text>
                 <Text>{t('profile.subscriptions')}</Text>
               </Block>
             </Block>
           </Block>
 
           {/* profile: about me */}
-          <Block paddingHorizontal={sizes.sm}>
+          <Block paddingHorizontal={sizes.m}>
             <Text h5 semibold marginBottom={sizes.s} marginTop={sizes.sm}>
               {t('profile.bio')}
             </Text>
@@ -139,8 +132,12 @@ const Profile = () => {
           </Block>
 
           {/* profile: photo album */}
-          <Block paddingHorizontal={sizes.sm} marginTop={sizes.s}>
-            <Block row align="center" justify="space-between">
+          <Block marginTop={sizes.s}>
+            <Block
+              paddingHorizontal={sizes.m}
+              row
+              align="center"
+              justify="space-between">
               <Text h5 semibold>
                 {t('profile.saveArticle')}
               </Text>
@@ -150,33 +147,22 @@ const Profile = () => {
                 </Text>
               </Button>
             </Block>
-            <Block row justify="space-between" wrap="wrap">
-              <Image
-                resizeMode="cover"
-                source={assets?.photo1}
-                style={{
-                  width: IMAGE_VERTICAL_SIZE + IMAGE_MARGIN / 2,
-                  height: IMAGE_VERTICAL_SIZE * 2 + IMAGE_VERTICAL_MARGIN,
-                }}
-              />
-              <Block marginLeft={sizes.m}>
-                <Image
-                  resizeMode="cover"
-                  source={assets?.photo2}
-                  marginBottom={IMAGE_VERTICAL_MARGIN}
-                  style={{
-                    height: IMAGE_VERTICAL_SIZE,
-                    width: IMAGE_VERTICAL_SIZE,
-                  }}
-                />
-                <Image
-                  resizeMode="cover"
-                  source={assets?.photo3}
-                  style={{
-                    height: IMAGE_VERTICAL_SIZE,
-                    width: IMAGE_VERTICAL_SIZE,
-                  }}
-                />
+            <Block
+              scroll
+              paddingHorizontal={sizes.padding}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{paddingBottom: sizes.l}}>
+              <Block
+                row
+                wrap="wrap"
+                justify="space-between"
+                marginTop={sizes.sm}>
+                {articles?.map((article, index) => {
+                  if (index >= 3) {
+                    return;
+                  }
+                  return <Product {...article} key={`card-${article?.id}`} />;
+                })}
               </Block>
             </Block>
           </Block>
