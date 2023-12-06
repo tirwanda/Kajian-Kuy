@@ -26,9 +26,7 @@ exports.createUser = catchAsyncErrors(async (req, res, next) => {
 			name,
 			email,
 			password,
-			avatar: avatar
-				? { public_id: myCloud.public_id, url: myCloud.secure_url }
-				: null,
+			avatar: null,
 		});
 
 		sendToken(user, 201, res);
@@ -100,29 +98,21 @@ exports.updateUserInfo = catchAsyncErrors(async (req, res, next) => {
 		user.title = req.body.title;
 		user.email = req.body.email;
 
-		if (req.body.avatar !== '') {
-			const image_id = user.avatar.public_id;
-			console.log('Avatar: ', req.body.avatar);
+		await user.save();
 
-			if (image_id) {
-				await cloudinary.v2.uploader.destroy(image_id);
-				console.log('Image ID: ', image_id);
-			}
+		res.status(201).json({
+			success: true,
+			user,
+		});
+	} catch (error) {
+		return next(new ErrorHandler(error.message, 401));
+	}
+});
 
-			const myCloud = await cloudinary.v2.uploader.upload(
-				req.body.avatar,
-				{
-					folder: 'avatars',
-				}
-			);
-
-			console.log('Avatar: ', req.body.avatar);
-			console.log('My Cloud: ', myCloud);
-			user.avatar = {
-				public_id: myCloud.public_id,
-				url: myCloud.secure_url,
-			};
-		}
+exports.updateUserAvatar = catchAsyncErrors(async (req, res, next) => {
+	try {
+		const user = await User.findById(req.user.id);
+		user.avatar = req.body.avatar;
 
 		await user.save();
 

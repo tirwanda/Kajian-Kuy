@@ -32,18 +32,17 @@ export const registerUser =
   };
 
 export const updateProfile =
-  (name: string, title: string, email: string, bio: string, avatar: string) =>
+  (name: string, title: string, email: string, bio: string) =>
   async (dispatch: Dispatch<any>) => {
     try {
       dispatch({
         type: 'updateProfileRequest',
       });
 
-      // const config = {headers: {'Content-Type': 'application/json'}};
       const token = await SecureStore.getItemAsync(TOKEN);
       const {data} = await axios.put(
         `${URI}/update-profile`,
-        {name, title, email, bio, avatar},
+        {name, title, email, bio},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -57,6 +56,35 @@ export const updateProfile =
     } catch (error: any) {
       dispatch({
         type: 'updateProfileFailed',
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+export const updateAvatar =
+  (avatar: string) => async (dispatch: Dispatch<any>) => {
+    try {
+      dispatch({
+        type: 'updateAvatarRequest',
+      });
+
+      const token = await SecureStore.getItemAsync(TOKEN);
+      const {data} = await axios.put(
+        `${URI}/update-avatar`,
+        {avatar},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      dispatch({type: 'updateAvatarSuccess', payload: data.user});
+      const user = JSON.stringify(data.user);
+      await SecureStore.setItemAsync(USER, user);
+    } catch (error: any) {
+      dispatch({
+        type: 'updateAvatarFailed',
         payload: error.response.data.message,
       });
     }

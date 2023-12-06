@@ -17,13 +17,8 @@ const userSchema = new mongoose.Schema(
 			required: [true, 'Please enter your password'],
 		},
 		avatar: {
-			public_id: {
-				type: String,
-			},
-			url: {
-				type: String,
-				default: '',
-			},
+			type: String,
+			default: '',
 		},
 		role: { type: String, default: 'ROLE_USER' },
 		title: { type: String, default: '' },

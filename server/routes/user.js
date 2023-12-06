@@ -5,6 +5,7 @@ const {
 	logoutUser,
 	userDetails,
 	updateUserInfo,
+	updateUserAvatar,
 } = require('../controllers/user');
 const { isAuthenticatedUser } = require('../middleware/auth');
 const router = express.Router();
@@ -18,5 +19,7 @@ router.route('/logout').get(logoutUser);
 router.route('/me').get(isAuthenticatedUser, userDetails);
 
 router.route('/update-profile').put(isAuthenticatedUser, updateUserInfo);
+
+router.route('/update-avatar').put(isAuthenticatedUser, updateUserAvatar);
 
 module.exports = router;

@@ -80,21 +80,12 @@ const Profile = () => {
               </Button>
             </Block>
             <Block flex={0} align="center" marginVertical={sizes.m}>
-              {user.avatar.url !== '' ? (
-                <Image
-                  width={64}
-                  height={64}
-                  marginBottom={sizes.sm}
-                  source={{uri: user.avatar.url}}
-                />
-              ) : (
-                <Image
-                  width={64}
-                  height={64}
-                  marginBottom={sizes.sm}
-                  source={blankAvatar}
-                />
-              )}
+              <Image
+                width={120}
+                height={120}
+                marginBottom={sizes.sm}
+                source={user.avatar ? {uri: user.avatar} : blankAvatar}
+              />
 
               <Text h5 center white>
                 {user?.name}

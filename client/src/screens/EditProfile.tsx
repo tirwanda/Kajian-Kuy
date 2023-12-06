@@ -2,13 +2,20 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Alert, Platform, ToastAndroid} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import * as ImagePicker from 'expo-image-picker';
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  getStorage,
+} from 'firebase/storage';
 
 import {Block, Button, Image, Input, Text} from '../components';
 import {useTheme, useTranslation} from '../hooks';
 import {useSelector} from 'react-redux';
 import * as regex from '../constants/regex';
-import {updateProfile} from '../redux/actions/userAction';
+import {updateAvatar, updateProfile} from '../redux/actions/userAction';
 import {useDispatch} from 'react-redux';
+import {checkIfFileExists, deleteAvatar} from '../firebase/firebaseHelper';
 
 const isAndroid = Platform.OS === 'android';
 
@@ -28,12 +35,16 @@ const EditProfile = () => {
   const {t} = useTranslation();
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const storage = getStorage();
   const {assets, colors, sizes, gradients} = useTheme();
   const blankAvatar = require('../assets/images/blank-avatar.png');
-  const {isAuthenticated, user} = useSelector((state: any) => state.user);
+  const {loading, isAuthenticated, user} = useSelector(
+    (state: any) => state.user,
+  );
 
-  const [selectedImage, setSelectedImage] = useState(user.avatar.url);
-  const [avatar, setAvatar] = useState<string>('');
+  const [selectedImage, setSelectedImage] = useState(user.avatar);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [progress, setProgress] = useState<string>('0');
   const [isValid, setIsValid] = useState<IProfileInfoValidation>({
     name: false,
     email: false,
@@ -55,11 +66,45 @@ const EditProfile = () => {
     });
 
     if (!result.canceled) {
-      // setAvatar('data:image/jpeg;base64,' + result.assets[0].uri);
-      setAvatar(result.assets[0].uri);
       setSelectedImage(result.assets[0].uri);
+      uploadAvatarImage(result.assets[0].uri);
     }
   };
+
+  async function uploadAvatarImage(uri: string) {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+
+    const storageRef = ref(storage, 'Avatars/' + user._id);
+    checkIfFileExists('Avatars/' + user._id).then((exists) => {
+      if (exists) {
+        deleteAvatar(user._id);
+      }
+
+      const uploadTask = uploadBytesResumable(storageRef, blob);
+
+      // listen for events
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          const progressValue =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setProgress(progressValue.toFixed());
+        },
+        (error) => {
+          dispatch({
+            type: 'updateProfileFailed',
+            payload: error.message,
+          });
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            updateAvatar(downloadURL)(dispatch);
+          });
+        },
+      );
+    });
+  }
 
   const handleSubmit = () => {
     if (profileInfo.name === '' || profileInfo.email === '') {
@@ -77,8 +122,11 @@ const EditProfile = () => {
         profileInfo.title,
         profileInfo.email,
         profileInfo.bio,
-        avatar,
-      )(dispatch);
+      )(dispatch).then(() => {
+        if (!loading) {
+          navigation.goBack();
+        }
+      });
     }
   };
 
@@ -94,7 +142,7 @@ const EditProfile = () => {
       Alert.alert('You are not logged in');
       navigation.navigate('Home');
     }
-  }, [isAuthenticated, navigation, user]);
+  }, [isAuthenticated, navigation, user, selectedImage]);
 
   useEffect(() => {
     setIsValid((state) => ({
@@ -140,21 +188,16 @@ const EditProfile = () => {
             </Button>
             <Block flex={0} align="center" marginVertical={sizes.m}>
               <Button onPress={() => handleImageSelection()}>
-                {user.avatar.url !== '' || selectedImage !== '' ? (
-                  <Image
-                    width={120}
-                    height={120}
-                    marginBottom={sizes.sm}
-                    source={{uri: selectedImage}}
-                  />
-                ) : (
-                  <Image
-                    width={120}
-                    height={120}
-                    marginBottom={sizes.sm}
-                    source={blankAvatar}
-                  />
-                )}
+                <Image
+                  width={120}
+                  height={120}
+                  marginBottom={sizes.sm}
+                  source={
+                    user.avatar || selectedImage !== null
+                      ? {uri: selectedImage}
+                      : blankAvatar
+                  }
+                />
               </Button>
             </Block>
           </Image>
@@ -205,8 +248,7 @@ const EditProfile = () => {
                     label={t('common.email')}
                     keyboardType="email-address"
                     placeholder={t('common.emailPlaceholder')}
-                    success={Boolean(profileInfo.email && isValid.email)}
-                    danger={Boolean(profileInfo.email && !isValid.email)}
+                    disabled
                     onChangeText={(value) => handleChange({email: value})}
                     value={profileInfo.email}
                   />
@@ -226,7 +268,7 @@ const EditProfile = () => {
                   marginVertical={sizes.s}
                   marginHorizontal={sizes.sm}
                   gradient={gradients.primary}
-                  disabled={Object.values(isValid).includes(false)}>
+                  disabled={Object.values(isValid).includes(false) || loading}>
                   <Text bold white transform="uppercase">
                     {t('common.update')}
                   </Text>
