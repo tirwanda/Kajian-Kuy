@@ -26,7 +26,7 @@ export const registerUser =
     } catch (error: any) {
       dispatch({
         type: 'userRegistrationFailed',
-        payload: error.response.data.message,
+        payload: error.response,
       });
     }
   };
@@ -40,7 +40,7 @@ export const updateProfile =
       });
 
       const token = await SecureStore.getItemAsync(TOKEN);
-      const {data} = await axios.put(
+      const response = await axios.put(
         `${URI}/update-profile`,
         {name, title, email, bio},
         {
@@ -50,8 +50,8 @@ export const updateProfile =
         },
       );
 
-      dispatch({type: 'updateProfileSuccess', payload: data.user});
-      const user = JSON.stringify(data.user);
+      dispatch({type: 'updateProfileSuccess', payload: response.data});
+      const user = JSON.stringify(response.data.user);
       await SecureStore.setItemAsync(USER, user);
     } catch (error: any) {
       dispatch({
@@ -143,7 +143,37 @@ export const signInUser =
     } catch (error: any) {
       dispatch({
         type: 'userSignInFailed',
-        payload: error.response.data.message,
+        payload: error.response,
+      });
+    }
+  };
+
+export const updatePassword =
+  (oldPassword: string, newPassword: string): any =>
+  async (dispatch: Dispatch<any>) => {
+    try {
+      dispatch({
+        type: 'updatePasswordRequest',
+      });
+
+      const token = await SecureStore.getItemAsync(TOKEN);
+      const response = await axios.put(
+        `${URI}/change-password`,
+        {oldPassword, newPassword},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      dispatch({type: 'updatePasswordSuccess', payload: response.data});
+      const user = JSON.stringify(response.data.user);
+      await SecureStore.setItemAsync(USER, user);
+      return response.data;
+    } catch (error: any) {
+      dispatch({
+        type: 'updatePasswordFailed',
+        payload: error.response,
       });
     }
   };

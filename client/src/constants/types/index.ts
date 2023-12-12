@@ -2,6 +2,7 @@ import i18n from 'i18n-js';
 import {ImageSourcePropType} from 'react-native';
 import {CalendarProps} from 'react-native-calendars';
 import {ITheme} from './theme';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 export * from './components';
 export * from './theme';
@@ -162,3 +163,26 @@ export interface ICalendar extends CalendarProps {
   calendar?: {start: number; end: number};
   onClose?: (calendar?: {start?: number; end?: number}) => void;
 }
+
+export enum MessageTypes {
+  'FAIL',
+  'SUCCESS',
+  'WARNING',
+  'DECISION',
+  'DANGEROUS_DECISION',
+  'INFO',
+}
+
+export interface IMessageModalProps {
+  messageModalVisible: boolean;
+  messageType?: MessageTypes;
+  headerText?: string;
+  messageText?: string;
+  onDismiss?: () => void;
+  onProceed?: () => void;
+  onReject?: () => void;
+  isLoading?: boolean;
+  isProcesing?: boolean;
+}
+
+export type MessageIconType = keyof typeof MaterialCommunityIcons.glyphMap;

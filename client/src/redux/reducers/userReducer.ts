@@ -5,6 +5,10 @@ const initialState = {
   loading: false,
   user: {},
   error: null,
+  errorCode: 0,
+  response: {
+    status: 0,
+  },
 };
 
 export const userReducer = createReducer(initialState, (builder) => {
@@ -21,7 +25,9 @@ export const userReducer = createReducer(initialState, (builder) => {
     .addCase('userRegistrationFailed', (state, action: any) => {
       state.loading = false;
       state.isAuthenticated = false;
-      state.error = action.payload;
+      state.user = {};
+      state.errorCode = action.payload.status;
+      state.error = action.payload.data.message;
     })
     .addCase('userLoadRequest', (state) => {
       state.loading = true;
@@ -46,17 +52,20 @@ export const userReducer = createReducer(initialState, (builder) => {
       state.isAuthenticated = true;
       state.user = action.payload;
     })
-    .addCase('userSignInFailed', (state) => {
+    .addCase('userSignInFailed', (state, action: any) => {
       state.loading = false;
       state.isAuthenticated = false;
       state.user = {};
+      state.errorCode = action.payload.status;
+      state.error = action.payload.data.message;
     })
     .addCase('updateProfileRequest', (state) => {
       state.loading = true;
     })
-    .addCase('updateProfileSuccess', (state, actiion: any) => {
+    .addCase('updateProfileSuccess', (state, action: any) => {
       state.loading = false;
-      state.user = actiion.payload;
+      state.user = action.payload.user;
+      state.response.status = action.payload.responseStatus;
     })
     .addCase('updateProfileFailed', (state, action: any) => {
       state.loading = false;
@@ -65,12 +74,34 @@ export const userReducer = createReducer(initialState, (builder) => {
     .addCase('updateAvatarRequest', (state) => {
       state.loading = true;
     })
-    .addCase('updateAvatarSuccess', (state, actiion: any) => {
+    .addCase('updateAvatarSuccess', (state, action: any) => {
       state.loading = false;
-      state.user = actiion.payload;
+      state.user = action.payload;
     })
     .addCase('updateAvatarFailed', (state, action: any) => {
       state.loading = false;
       state.error = action.payload;
+    })
+    .addCase('updatePasswordRequest', (state) => {
+      state.loading = true;
+      state.response.status = 0;
+    })
+    .addCase('updatePasswordSuccess', (state, action: any) => {
+      state.loading = false;
+      state.user = action.payload.user;
+      state.response.status = action.payload.responseStatus;
+    })
+    .addCase('updatePasswordFailed', (state, action: any) => {
+      state.loading = false;
+      state.error = action.payload;
+      state.errorCode = action.payload.status;
+      state.error = action.payload.data.message;
+    })
+    .addCase('resetError', (state) => {
+      state.error = null;
+      state.errorCode = 0;
+    })
+    .addCase('resetResponseStatus', (state) => {
+      state.response.status = 0;
     });
 });

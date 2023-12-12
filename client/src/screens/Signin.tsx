@@ -1,12 +1,21 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {useData, useTheme, useTranslation} from '../hooks';
-import {Block, Button, Checkbox, Image, Input, Text} from '../components';
-import {Alert, Platform} from 'react-native';
+import {
+  Block,
+  Button,
+  Checkbox,
+  Image,
+  Input,
+  MessageModal,
+  Text,
+} from '../components';
+import {Platform} from 'react-native';
 
 import * as regex from '../constants/regex';
 import {signInUser} from '../redux/actions/userAction';
 import {useDispatch, useSelector} from 'react-redux';
+import {MessageTypes} from '../constants/types';
 
 const isAndroid = Platform.OS === 'android';
 
@@ -25,11 +34,15 @@ interface ILoginValidation {
 const Signin = () => {
   const {isDark} = useData();
   const dispatch = useDispatch();
-  const {error, isAuthenticated} = useSelector((state: any) => state.user);
+  const {error, isAuthenticated, errorCode} = useSelector(
+    (state: any) => state.user,
+  );
   const {t} = useTranslation();
   const navigation = useNavigation();
 
   const {assets, colors, gradients, sizes} = useTheme();
+
+  const [isError, setIsError] = useState(false);
 
   const [isValid, setIsValid] = useState<ILoginValidation>({
     email: false,
@@ -53,10 +66,12 @@ const Signin = () => {
   const handleSignIn = useCallback(() => {
     /** send/save registratin data */
     signInUser(login.email, login.password)(dispatch);
-    if (error) {
-      Alert.alert(error);
-    }
-  }, [dispatch, login, error]);
+  }, [dispatch, login]);
+
+  const handleCloseModal = () => {
+    setIsError(false);
+    dispatch({type: 'resetError'});
+  };
 
   useEffect(() => {
     setIsValid((state) => ({
@@ -73,8 +88,22 @@ const Signin = () => {
     }
   }, [isAuthenticated, navigation]);
 
+  useEffect(() => {
+    if (errorCode === 401) {
+      setIsError(true);
+    }
+  }, [errorCode]);
+
   return (
     <Block safe marginTop={sizes.md}>
+      <MessageModal
+        messageModalVisible={isError}
+        messageText={error}
+        headerText="Signin Failed"
+        onDismiss={() => handleCloseModal()}
+        onReject={() => handleCloseModal()}
+        messageType={MessageTypes.FAIL}
+      />
       <Block paddingHorizontal={sizes.s}>
         <Block flex={0} style={{zIndex: 0}}>
           <Image

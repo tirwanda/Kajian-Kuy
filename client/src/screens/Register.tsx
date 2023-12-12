@@ -1,12 +1,21 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Alert, Linking, Platform} from 'react-native';
+import {Linking, Platform} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
 import {useData, useTheme, useTranslation} from '../hooks';
 import * as regex from '../constants/regex';
-import {Block, Button, Input, Image, Text, Checkbox} from '../components';
+import {
+  Block,
+  Button,
+  Input,
+  Image,
+  Text,
+  Checkbox,
+  MessageModal,
+} from '../components';
 import {useDispatch, useSelector} from 'react-redux';
 import {registerUser} from '../redux/actions/userAction';
+import {MessageTypes} from '../constants/types';
 
 const isAndroid = Platform.OS === 'android';
 
@@ -28,7 +37,11 @@ const Register = () => {
   const {isDark} = useData();
   const {t} = useTranslation();
   const navigation = useNavigation();
-  const {error, isAuthenticated} = useSelector((state: any) => state.user);
+  const {error, isAuthenticated, errorCode} = useSelector(
+    (state: any) => state.user,
+  );
+
+  const [isError, setIsError] = useState(false);
   const [isValid, setIsValid] = useState<IRegistrationValidation>({
     name: false,
     email: false,
@@ -59,10 +72,12 @@ const Register = () => {
         registration.agreed,
       )(dispatch);
     }
-    if (error) {
-      Alert.alert(error);
-    }
-  }, [error, isValid, registration, dispatch]);
+  }, [isValid, registration, dispatch]);
+
+  const handleCloseModal = () => {
+    setIsError(false);
+    dispatch({type: 'resetError'});
+  };
 
   useEffect(() => {
     setIsValid((state) => ({
@@ -80,8 +95,22 @@ const Register = () => {
     }
   }, [isAuthenticated, navigation]);
 
+  useEffect(() => {
+    if (errorCode === 400) {
+      setIsError(true);
+    }
+  }, [errorCode]);
+
   return (
     <Block safe marginTop={sizes.md}>
+      <MessageModal
+        messageModalVisible={isError}
+        messageText={error}
+        headerText="Register Failed"
+        onDismiss={() => handleCloseModal()}
+        onReject={() => handleCloseModal()}
+        messageType={MessageTypes.FAIL}
+      />
       <Block paddingHorizontal={sizes.s}>
         <Block flex={0} style={{zIndex: 0}}>
           <Image

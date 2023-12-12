@@ -9,13 +9,14 @@ import {
   getStorage,
 } from 'firebase/storage';
 
-import {Block, Button, Image, Input, Text} from '../components';
+import {Block, Button, Image, Input, MessageModal, Text} from '../components';
 import {useTheme, useTranslation} from '../hooks';
 import {useSelector} from 'react-redux';
 import * as regex from '../constants/regex';
 import {updateAvatar, updateProfile} from '../redux/actions/userAction';
 import {useDispatch} from 'react-redux';
 import {checkIfFileExists, deleteAvatar} from '../firebase/firebaseHelper';
+import {MessageTypes} from '../constants/types';
 
 const isAndroid = Platform.OS === 'android';
 
@@ -38,13 +39,15 @@ const EditProfile = () => {
   const storage = getStorage();
   const {assets, colors, sizes, gradients} = useTheme();
   const blankAvatar = require('../assets/images/blank-avatar.png');
-  const {loading, isAuthenticated, user} = useSelector(
+  const {loading, isAuthenticated, user, response} = useSelector(
     (state: any) => state.user,
   );
 
   const [selectedImage, setSelectedImage] = useState(user.avatar);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [progress, setProgress] = useState<string>('0');
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [dataIsChanged, setDataIsChanged] = useState<boolean>(true);
   const [isValid, setIsValid] = useState<IProfileInfoValidation>({
     name: false,
     email: false,
@@ -72,8 +75,8 @@ const EditProfile = () => {
   };
 
   async function uploadAvatarImage(uri: string) {
-    const response = await fetch(uri);
-    const blob = await response.blob();
+    const res = await fetch(uri);
+    const blob = await res.blob();
 
     const storageRef = ref(storage, 'Avatars/' + user._id);
     checkIfFileExists('Avatars/' + user._id).then((exists) => {
@@ -122,20 +125,23 @@ const EditProfile = () => {
         profileInfo.title,
         profileInfo.email,
         profileInfo.bio,
-      )(dispatch).then(() => {
-        if (!loading) {
-          navigation.goBack();
-        }
-      });
+      )(dispatch);
     }
   };
 
   const handleChange = useCallback(
     (value: any) => {
       setProfileInfo((state: any) => ({...state, ...value}));
+      setDataIsChanged(false);
     },
     [setProfileInfo],
   );
+
+  const handleCloseSuccessModal = () => {
+    setIsSuccess(false);
+    dispatch({type: 'resetResponseStatus'});
+    navigation.navigate('Profile');
+  };
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -152,10 +158,23 @@ const EditProfile = () => {
     }));
   }, [profileInfo, setIsValid]);
 
+  useEffect(() => {
+    if (response.status === 201) {
+      setIsSuccess(true);
+    }
+  }, [response]);
+
   useEffect(() => {}, [selectedImage]);
 
   return (
     <Block safe marginTop={sizes.md}>
+      <MessageModal
+        messageModalVisible={isSuccess}
+        headerText="Success To Change User Info"
+        onDismiss={() => handleCloseSuccessModal()}
+        onReject={() => handleCloseSuccessModal()}
+        messageType={MessageTypes.SUCCESS}
+      />
       <Block
         scroll
         paddingHorizontal={sizes.s}
@@ -268,7 +287,11 @@ const EditProfile = () => {
                   marginVertical={sizes.s}
                   marginHorizontal={sizes.sm}
                   gradient={gradients.primary}
-                  disabled={Object.values(isValid).includes(false) || loading}>
+                  disabled={
+                    Object.values(isValid).includes(false) ||
+                    loading ||
+                    dataIsChanged
+                  }>
                   <Text bold white transform="uppercase">
                     {t('common.update')}
                   </Text>

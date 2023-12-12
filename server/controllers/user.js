@@ -2,6 +2,7 @@ const User = require('../models/UserModel');
 const ErrorHandler = require('../utils/ErrorHandler.js');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 const sendToken = require('../utils/jwtToken.js');
+const bcrypt = require('bcryptjs');
 const cloudinary = require('cloudinary');
 
 // Register user
@@ -56,9 +57,7 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
 	const isPasswordMatched = await user.comparePassword(password);
 
 	if (!isPasswordMatched) {
-		return next(
-			new ErrorHandler('User is not find with this email & password', 401)
-		);
+		return next(new ErrorHandler('Email or Password is Incorrect', 401));
 	}
 
 	sendToken(user, 201, res);
@@ -102,6 +101,7 @@ exports.updateUserInfo = catchAsyncErrors(async (req, res, next) => {
 
 		res.status(201).json({
 			success: true,
+			responseStatus: 201,
 			user,
 		});
 	} catch (error) {
@@ -122,5 +122,35 @@ exports.updateUserAvatar = catchAsyncErrors(async (req, res, next) => {
 		});
 	} catch (error) {
 		return next(new ErrorHandler(error.message, 401));
+	}
+});
+
+exports.changePassword = catchAsyncErrors(async (req, res, next) => {
+	try {
+		const user = await User.findById(req.user.id);
+
+		const isPasswordMatched = await user.comparePassword(
+			req.body.oldPassword
+		);
+
+		if (!isPasswordMatched) {
+			return res.status(400).json({
+				success: false,
+				message: 'Your Old Password Is Incorrect',
+			});
+		} else {
+			user.password = req.body.newPassword;
+			await user.save();
+			res.status(201).json({
+				success: true,
+				user,
+				responseStatus: 201,
+			});
+		}
+	} catch (error) {
+		res.status(500).json({
+			success: false,
+			message: error.message,
+		});
 	}
 });

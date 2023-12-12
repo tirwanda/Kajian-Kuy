@@ -425,7 +425,7 @@ export interface IButtonProps extends TouchableOpacityProps, ISpacing {
    * Repeat vibration pattern
    * @see https://reactnative.dev/docs/vibration
    */
-  vibrateRepeat?: boolean | null;
+  vibrateRepeat?: boolean | undefined;
   /**
    * Renders Button content
    */
