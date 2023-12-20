@@ -34,7 +34,7 @@ interface ILoginValidation {
 const Signin = () => {
   const {isDark} = useData();
   const dispatch = useDispatch();
-  const {error, isAuthenticated, errorCode} = useSelector(
+  const {error, isAuthenticated, errorCode, loading} = useSelector(
     (state: any) => state.user,
   );
   const {t} = useTranslation();
@@ -252,7 +252,7 @@ const Signin = () => {
                 marginVertical={sizes.s}
                 marginHorizontal={sizes.sm}
                 gradient={gradients.primary}
-                disabled={Object.values(isValid).includes(false)}>
+                disabled={Object.values(isValid).includes(false) || loading}>
                 <Text bold white transform="uppercase">
                   {t('common.signin')}
                 </Text>

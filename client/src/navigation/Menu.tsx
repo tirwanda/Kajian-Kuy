@@ -72,6 +72,7 @@ const DrawerContent = (
   const {isDark, handleIsDark} = useData();
   const [active, setActive] = useState('Home');
   const {assets, colors, gradients, sizes} = useTheme();
+
   const labelColor = colors.text;
 
   const handleNavigation = useCallback(
@@ -85,12 +86,30 @@ const DrawerContent = (
   // screen list for Drawer menu
   const screens = [
     {name: t('screens.home'), to: 'Home', icon: assets.home},
+    {name: t('screens.channels'), to: 'Channels', icon: assets.components},
     {name: t('screens.components'), to: 'Components', icon: assets.components},
     {name: t('screens.kajian'), to: 'Articles', icon: assets.document},
     {name: t('screens.settings'), to: 'Settings', icon: assets.settings},
     {name: t('screens.signin'), to: 'Signin', icon: assets.users},
     {name: t('screens.register'), to: 'Register', icon: assets.register},
   ];
+
+  // const screens = isAuthenticated
+  //   ? [
+  //       {name: t('screens.home'), to: 'Home', icon: assets.home},
+  //       {name: t('screens.channels'), to: 'Channels', icon: assets.components},
+  //     ]
+  //   : [
+  //       {name: t('screens.home'), to: 'Home', icon: assets.home},
+  //       {name: t('screens.channels'), to: 'Channels', icon: assets.components},
+  //       {
+  //         name: t('screens.components'),
+  //         to: 'Components',
+  //         icon: assets.components,
+  //       },
+  //       {name: t('screens.kajian'), to: 'Articles', icon: assets.document},
+  //       {name: t('screens.settings'), to: 'Settings', icon: assets.settings},
+  //     ];
 
   return (
     <DrawerContentScrollView
@@ -176,6 +195,7 @@ const DrawerContentAuth = (
 ) => {
   const {navigation} = props;
   const {t} = useTranslation();
+  const {user} = useSelector((state: any) => state.user);
   const {isDark, handleIsDark} = useData();
   const [active, setActive] = useState('Home');
   const {assets, colors, gradients, sizes} = useTheme();
@@ -189,14 +209,81 @@ const DrawerContentAuth = (
     [navigation, setActive],
   );
 
-  // screen list for Drawer menu
-  const screens = [
-    {name: t('screens.home'), to: 'Home', icon: assets.home},
-    {name: t('screens.components'), to: 'Components', icon: assets.components},
-    {name: t('screens.kajian'), to: 'Articles', icon: assets.document},
-    {name: t('screens.profile'), to: 'Profile', icon: assets.profile},
-    {name: t('screens.settings'), to: 'Settings', icon: assets.settings},
-  ];
+  const getScreens = () => {
+    switch (user?.role) {
+      case 'ROLE_USER':
+        return [
+          {name: t('screens.home'), to: 'Home', icon: assets.home},
+          {
+            name: t('screens.channels'),
+            to: 'Channels',
+            icon: assets.components,
+          },
+          {
+            name: t('screens.components'),
+            to: 'Components',
+            icon: assets.components,
+          },
+          {name: t('screens.kajian'), to: 'Articles', icon: assets.document},
+          {name: t('screens.profile'), to: 'Profile', icon: assets.profile},
+          {name: t('screens.settings'), to: 'Settings', icon: assets.settings},
+        ];
+      case 'ROLE_PUBLISHER':
+        return [
+          {name: t('screens.home'), to: 'Home', icon: assets.home},
+          {
+            name: t('screens.channels'),
+            to: 'Channels',
+            icon: assets.components,
+          },
+          {
+            name: t('screens.components'),
+            to: 'Components',
+            icon: assets.components,
+          },
+          {name: t('screens.kajian'), to: 'Articles', icon: assets.document},
+          {name: t('screens.profile'), to: 'Profile', icon: assets.profile},
+          {name: t('screens.settings'), to: 'Settings', icon: assets.settings},
+        ];
+      case 'ROLE_ADMIN':
+        return [
+          {name: t('screens.home'), to: 'Home', icon: assets.home},
+          {
+            name: t('screens.channels'),
+            to: 'Channels',
+            icon: assets.components,
+          },
+          {
+            name: t('screens.components'),
+            to: 'Components',
+            icon: assets.components,
+          },
+          {name: t('screens.kajian'), to: 'Articles', icon: assets.document},
+          {name: t('screens.profile'), to: 'Profile', icon: assets.profile},
+          {name: t('screens.settings'), to: 'Settings', icon: assets.settings},
+        ];
+      default:
+        // ROLE_USER or any other role
+        return [
+          {name: t('screens.home'), to: 'Home', icon: assets.home},
+          {
+            name: t('screens.channels'),
+            to: 'Channels',
+            icon: assets.components,
+          },
+          {
+            name: t('screens.components'),
+            to: 'Components',
+            icon: assets.components,
+          },
+          {name: t('screens.kajian'), to: 'Articles', icon: assets.document},
+          {name: t('screens.profile'), to: 'Profile', icon: assets.profile},
+          {name: t('screens.settings'), to: 'Settings', icon: assets.settings},
+        ];
+    }
+  };
+
+  const screens = getScreens();
 
   return (
     <DrawerContentScrollView

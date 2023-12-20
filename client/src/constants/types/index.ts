@@ -69,6 +69,16 @@ export interface IProduct {
   linkLabel?: string;
   type: 'vertical' | 'horizontal';
 }
+
+export interface IChannels {
+  id: string;
+  banner?: string;
+  channelPicture?: string;
+  channelName: string;
+  createdAt: Number;
+  latestPost: Number;
+}
+
 export interface ILocation {
   id?: number;
   city?: string;
@@ -101,6 +111,12 @@ export interface IUseData {
   handleArticle: (data?: IArticle) => void;
   notifications: INotification[];
   handleNotifications: (data?: INotification[]) => void;
+  followingChannels: IChannels[];
+  setFollowingChannels: (data?: IChannels[]) => void;
+  trendingChannels: IChannels[];
+  setTrendingChannels: (data?: IChannels[]) => void;
+  allChannels: IChannels[];
+  setAllChannels: (data?: IChannels[]) => void;
 }
 
 export interface ITranslate {

@@ -1,7 +1,14 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import Storage from '@react-native-async-storage/async-storage';
 
-import {IArticle, ICategory, IUser, IUseData, ITheme} from '../constants/types';
+import {
+  IArticle,
+  ICategory,
+  IUser,
+  IUseData,
+  ITheme,
+  IChannels,
+} from '../constants/types';
 
 import {
   USERS,
@@ -9,6 +16,9 @@ import {
   TRENDING,
   CATEGORIES,
   ARTICLES,
+  FOLLOWING_CHANNELS,
+  TRENDING_CHANNELS,
+  ALL_CHANNELS,
 } from '../constants/mocks';
 import {dark, light} from '../constants';
 
@@ -24,6 +34,14 @@ export const DataProvider = ({children}: {children: React.ReactNode}) => {
   const [categories, setCategories] = useState<ICategory[]>(CATEGORIES);
   const [articles, setArticles] = useState<IArticle[]>(ARTICLES);
   const [article, setArticle] = useState<IArticle>();
+
+  const [followingChannels, setFollowingChannels] =
+    useState<IChannels[]>(FOLLOWING_CHANNELS);
+
+  const [trendingChannels, setTrendingChannels] =
+    useState<IChannels[]>(TRENDING_CHANNELS);
+
+  const [allChannels, setAllChannels] = useState<IChannels[]>(ALL_CHANNELS);
 
   // get isDark mode from storage
   const getIsDark = useCallback(async () => {
@@ -109,6 +127,12 @@ export const DataProvider = ({children}: {children: React.ReactNode}) => {
     setArticles,
     article,
     handleArticle,
+    followingChannels,
+    setFollowingChannels,
+    trendingChannels,
+    setTrendingChannels,
+    allChannels,
+    setAllChannels,
   };
 
   return (

@@ -68,6 +68,7 @@
   "darkMode": "Dark Mode",
   "screens": {
     "home": "Home",
+    "channels": "Channels",
     "components": "Components",
     "kajian": "Kajian",
     "profile": "Profile",
@@ -77,6 +78,7 @@
   },
   "navigation": {
     "home": "Kajian Kuy",
+    "channels": "Channels",
     "components": "Components",
     "articles": "List Kajian",
     "rentals": "Soft UI",

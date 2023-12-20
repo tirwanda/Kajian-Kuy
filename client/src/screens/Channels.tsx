@@ -1,23 +1,26 @@
 import React, {useCallback, useState} from 'react';
 
 import {useData, useTheme, useTranslation} from '../hooks';
-import {Block, Button, Image, Input, Product, Text} from '../components';
+import {Block, Button, Image, Input, Text} from '../components';
 import {useSelector} from 'react-redux';
 
-const Home = () => {
+const Channels = () => {
   const {t} = useTranslation();
   const [tab, setTab] = useState<number>(0);
-  const {following, trending} = useData();
-  const [products, setProducts] = useState(following);
+  const {followingChannels, trendingChannels, allChannels} = useData();
+  const [channels, setChannels] = useState(allChannels);
   const {assets, colors, fonts, gradients, sizes} = useTheme();
+
   const {isAuthenticated} = useSelector((state: any) => state.user);
 
-  const handleProducts = useCallback(
-    (tabProduct: number) => {
-      setTab(tabProduct);
-      setProducts(tabProduct === 0 ? following : trending);
+  const blankAvatar = require('../assets/images/blank-avatar.png');
+
+  const handleChannels = useCallback(
+    (tabChannels: number) => {
+      setTab(tabChannels);
+      setChannels(tabChannels === 0 ? followingChannels : trendingChannels);
     },
-    [following, trending, setTab, setProducts],
+    [followingChannels, trendingChannels],
   );
 
   return (
@@ -27,7 +30,8 @@ const Home = () => {
         <Input search placeholder={t('common.search')} />
       </Block>
 
-      {/* toggle article list */}
+      {/* toggle Channel list */}
+
       {isAuthenticated && (
         <Block
           row
@@ -36,7 +40,7 @@ const Home = () => {
           justify="center"
           color={colors.card}
           paddingBottom={sizes.sm}>
-          <Button onPress={() => handleProducts(0)}>
+          <Button onPress={() => handleChannels(0)}>
             <Block row align="center">
               <Block
                 flex={0}
@@ -61,7 +65,7 @@ const Home = () => {
             marginHorizontal={sizes.sm}
             height={sizes.socialIconSize}
           />
-          <Button onPress={() => handleProducts(1)}>
+          <Button onPress={() => handleChannels(1)}>
             <Block row align="center">
               <Block
                 flex={0}
@@ -86,20 +90,55 @@ const Home = () => {
         </Block>
       )}
 
-      {/* products list */}
+      {/* Channel list */}
       <Block
         scroll
         paddingHorizontal={sizes.padding}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: sizes.l}}>
-        <Block row wrap="wrap" justify="space-between" marginTop={sizes.sm}>
-          {products?.map((product) => (
-            <Product {...product} key={`card-${product?.id}`} />
-          ))}
-        </Block>
+        {channels?.map((channel, index) => (
+          <Block key={index} card marginTop={sizes.sm}>
+            <Image
+              resizeMode="cover"
+              source={channel.banner ? {uri: channel.banner} : assets?.card4}
+              style={{width: '100%'}}
+            />
+            <Text
+              p
+              marginTop={sizes.s}
+              marginLeft={sizes.xs}
+              marginBottom={sizes.sm}>
+              Description about the channel
+            </Text>
+            {/* user details */}
+            <Block row marginLeft={sizes.xs} marginBottom={sizes.xs}>
+              <Image
+                source={
+                  channel.channelPicture
+                    ? {uri: channel.channelPicture}
+                    : blankAvatar
+                }
+                style={{
+                  width: sizes.xl,
+                  height: sizes.xl,
+                  borderRadius: sizes.s,
+                }}
+              />
+              <Block marginLeft={sizes.s}>
+                <Text p semibold>
+                  {channel.channelName}
+                </Text>
+                <Text p gray>
+                  Posted on{' '}
+                  {new Date(Number(channel.latestPost)).toDateString()}
+                </Text>
+              </Block>
+            </Block>
+          </Block>
+        ))}
       </Block>
     </Block>
   );
 };
 
-export default Home;
+export default Channels;

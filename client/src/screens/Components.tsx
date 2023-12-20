@@ -319,7 +319,7 @@ const Cards = () => {
           marginTop={sizes.s}
           marginLeft={sizes.xs}
           marginBottom={sizes.sm}>
-          The most beautiful and complex UI Kits built by Creative Tim.
+          The most beautiful and complex UI Kits built by Kajian Kuy.
         </Text>
         {/* user details */}
         <Block row marginLeft={sizes.xs} marginBottom={sizes.xs}>

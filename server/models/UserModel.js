@@ -25,6 +25,8 @@ const userSchema = new mongoose.Schema(
 		bio: { type: String, default: '' },
 		saveArticles: [{ type: mongoose.Types.ObjectId, ref: 'Article' }],
 		subscriptions: [{ type: mongoose.Types.ObjectId, ref: 'Channel' }],
+		createdAt: { type: Number, default: Date.now },
+		updatedAt: { type: Number, default: Date.now },
 	},
 	{ timestamps: true }
 );
@@ -35,6 +37,11 @@ userSchema.pre('save', async function (next) {
 		next();
 	}
 	this.password = await bcrypt.hash(this.password, 10);
+});
+
+userSchema.pre('updateOne', function (next) {
+	this.update({}, { $set: { updatedAt: Date.now() } });
+	next();
 });
 
 // jwt token

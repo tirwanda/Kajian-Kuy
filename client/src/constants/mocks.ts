@@ -4,6 +4,7 @@ import {
   IArticleOptions,
   IBasket,
   ICategory,
+  IChannels,
   IExtra,
   IKajian,
   ILocation,
@@ -391,8 +392,7 @@ export const ARTICLES: IKajian[] = [
   },
   {
     id: 13,
-    description:
-      'The most beautiful and complex UI Kits built by Creative Tim.',
+    description: 'The most beautiful and complex UI Kits built by Kajian Kuy.',
     category: CATEGORIES[3], // best deal
     image:
       'https://images.unsplash.com/photo-1486299267070-83823f5448dd?fit=crop&w=450&q=80',
@@ -431,8 +431,7 @@ export const RECOMMENDATIONS: IArticle[] = [
   },
   {
     id: 3,
-    description:
-      'The most beautiful and complex UI Kits built by Creative Tim.',
+    description: 'The most beautiful and complex UI Kits built by Kajian Kuy.',
     category: CATEGORIES[3], // best deal
     options: ARTICLE_OPTIONS,
     image:
@@ -689,6 +688,57 @@ export const NOTIFICATIONS: INotification[] = [
   },
 ];
 
+export const TRENDING_CHANNELS: IChannels[] = [
+  {
+    id: 'dfifgni',
+    channelName: 'Kajian Sunnah Bekasi',
+    createdAt: 1702536399405,
+    latestPost: 1702536448946,
+  },
+  {
+    id: 'adsfof',
+    channelName: 'The Rabbanians',
+    createdAt: 1702533986744,
+    latestPost: 1702533986744,
+  },
+];
+
+export const FOLLOWING_CHANNELS: IChannels[] = [
+  {
+    id: 'dfifgni',
+    channelName: 'Kajian Sunnah Bekasi',
+    createdAt: 1702536399405,
+    latestPost: 1702536399405,
+  },
+  {
+    id: '9dfsgvjsed0',
+    channelName: 'Kajian Sunnah Jakarta',
+    createdAt: 1702533983544,
+    latestPost: 1702533983544,
+  },
+];
+
+export const ALL_CHANNELS: IChannels[] = [
+  {
+    id: 'dfifgni',
+    channelName: 'Kajian Sunnah Bekasi',
+    createdAt: 1702536399405,
+    latestPost: 1702536399405,
+  },
+  {
+    id: '9dfsgvjsed0',
+    channelName: 'Kajian Sunnah Jakarta',
+    createdAt: 1702533983544,
+    latestPost: 1702534475310,
+  },
+  {
+    id: 'adsfof',
+    channelName: 'The Rabbanians',
+    createdAt: 1702533986744,
+    latestPost: 1702533986744,
+  },
+];
+
 export default {
   USERS,
   FOLLOWING,
@@ -699,4 +749,7 @@ export default {
   MESSSAGES,
   EXTRAS,
   NOTIFICATIONS,
+  TRENDING_CHANNELS,
+  FOLLOWING_CHANNELS,
+  ALL_CHANNELS,
 };

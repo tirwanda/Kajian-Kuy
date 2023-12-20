@@ -12,16 +12,18 @@ import {
   Settings,
   NotificationsSettings,
   Notifications,
-  Pro,
   ChangePassword,
+  Channels,
 } from '../screens';
 import {useScreenOptions, useTranslation} from '../hooks';
+import {useSelector} from 'react-redux';
 
 const Stack = createStackNavigator();
 
 export default () => {
   const {t} = useTranslation();
   const screenOptions = useScreenOptions();
+  const {user, isAuthenticated} = useSelector((state: any) => state.user);
 
   return (
     <Stack.Navigator screenOptions={screenOptions.stack}>
@@ -30,6 +32,24 @@ export default () => {
         component={Home}
         options={{title: t('navigation.home')}}
       />
+
+      {(user?.role === 'ROLE_USER' ||
+        !isAuthenticated ||
+        user?.role === 'ROLE_ADMIN') && (
+        <Stack.Screen
+          name="Channels"
+          component={Channels}
+          options={screenOptions.channel}
+        />
+      )}
+
+      {(user?.role === 'ROLE_PUBLISHER' || user?.role === 'ROLE_USTADZ') && (
+        <Stack.Screen
+          name="Channels"
+          component={Channels}
+          options={screenOptions.channelAuth}
+        />
+      )}
 
       <Stack.Screen
         name="Components"
@@ -42,8 +62,6 @@ export default () => {
         component={Articles}
         options={{title: t('navigation.articles')}}
       />
-
-      <Stack.Screen name="Pro" component={Pro} options={screenOptions.pro} />
 
       <Stack.Screen
         name="Profile"

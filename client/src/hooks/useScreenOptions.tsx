@@ -7,8 +7,8 @@ import {
 import {useNavigation} from '@react-navigation/core';
 import {DrawerActions} from '@react-navigation/native';
 import {StackHeaderOptions} from '@react-navigation/stack/lib/typescript/src/types';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
 
-import {useData} from './useData';
 import {useTranslation} from './useTranslation';
 
 import Image from '../components/Image';
@@ -16,12 +16,15 @@ import Text from '../components/Text';
 import useTheme from './useTheme';
 import Button from '../components/Button';
 import Block from '../components/Block';
+import {useSelector} from 'react-redux';
 
 export default () => {
   const {t} = useTranslation();
-  const {user} = useData();
+  const {user} = useSelector((state: any) => state.user);
   const navigation = useNavigation();
   const {icons, colors, gradients, sizes} = useTheme();
+
+  const blankAvatar = require('../assets/images/blank-avatar.png');
 
   const menu = {
     headerStyle: {elevation: 0},
@@ -102,7 +105,7 @@ export default () => {
         <Button
           onPress={() =>
             navigation.navigate('Screens', {
-              screen: 'Settings',
+              screen: 'Home',
             })
           }>
           <Image
@@ -132,40 +135,38 @@ export default () => {
         </Button>
       ),
     },
-    profile: {
+
+    channel: {
+      ...menu,
+      headerRight: () => null,
+    },
+    channelAuth: {
       ...menu,
       headerRight: () => (
         <Block row flex={0} align="center" marginRight={sizes.padding}>
-          <TouchableOpacity
-            style={{marginRight: sizes.sm}}
-            onPress={() =>
-              navigation.navigate('Screens', {
-                screen: 'Notifications',
-              })
-            }>
-            <Image source={icons.bell} radius={0} color={colors.icon} />
-            <Block
-              flex={0}
-              right={0}
-              width={sizes.s}
-              height={sizes.s}
-              radius={sizes.xs}
-              position="absolute"
-              gradient={gradients?.primary}
-            />
-          </TouchableOpacity>
           <TouchableOpacity
             onPress={() =>
               navigation.dispatch(
                 DrawerActions.jumpTo('Screens', {screen: 'Profile'}),
               )
             }>
-            <Image
-              radius={6}
-              width={24}
-              height={24}
-              source={{uri: user.avatar}}
-            />
+            {user?.channel ? (
+              <Button row flex={0} justify="flex-end">
+                <Image
+                  width={40}
+                  height={40}
+                  source={user.avatar ? {uri: user.avatar} : blankAvatar}
+                />
+              </Button>
+            ) : (
+              <Button row flex={0} justify="flex-end">
+                <MaterialCommunityIcons
+                  name={'plus-box-multiple-outline'}
+                  size={32}
+                  color={colors.primary}
+                />
+              </Button>
+            )}
           </TouchableOpacity>
         </Block>
       ),
