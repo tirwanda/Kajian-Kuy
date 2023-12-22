@@ -17,9 +17,11 @@ if (process.env.NODE_ENV !== 'PRODUCTION') {
 }
 
 // Route imports
-const user = require('./routes/user');
+const user = require('./routes/mobile/user');
+const webUser = require('./routes/web/user');
 
 app.use('/api/v1', user);
+app.use('/api/v1/web', webUser);
 
 // it's for errorHandeling
 app.use(ErrorHandler);

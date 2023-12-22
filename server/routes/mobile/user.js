@@ -7,8 +7,8 @@ const {
 	updateUserInfo,
 	updateUserAvatar,
 	changePassword,
-} = require('../controllers/user');
-const { isAuthenticatedUser } = require('../middleware/auth');
+} = require('../../controllers/mobile/user');
+const { isAuthenticatedUser } = require('../../middleware/auth');
 const router = express.Router();
 
 router.route('/registration').post(createUser);
