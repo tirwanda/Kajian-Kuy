@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Animated, StyleSheet} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {
   useIsDrawerOpen,
@@ -9,11 +9,12 @@ import {
   DrawerContentOptions,
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 import Screens from './Screens';
 import {Block, Text, Switch, Button, Image} from '../components';
 import {useData, useTheme, useTranslation} from '../hooks';
-import {loadUser} from '../redux/actions/userAction';
+import {loadUser, signOutUser} from '../redux/actions/userAction';
 
 const Drawer = createDrawerNavigator();
 
@@ -93,23 +94,6 @@ const DrawerContent = (
     {name: t('screens.signin'), to: 'Signin', icon: assets.users},
     {name: t('screens.register'), to: 'Register', icon: assets.register},
   ];
-
-  // const screens = isAuthenticated
-  //   ? [
-  //       {name: t('screens.home'), to: 'Home', icon: assets.home},
-  //       {name: t('screens.channels'), to: 'Channels', icon: assets.components},
-  //     ]
-  //   : [
-  //       {name: t('screens.home'), to: 'Home', icon: assets.home},
-  //       {name: t('screens.channels'), to: 'Channels', icon: assets.components},
-  //       {
-  //         name: t('screens.components'),
-  //         to: 'Components',
-  //         icon: assets.components,
-  //       },
-  //       {name: t('screens.kajian'), to: 'Articles', icon: assets.document},
-  //       {name: t('screens.settings'), to: 'Settings', icon: assets.settings},
-  //     ];
 
   return (
     <DrawerContentScrollView
@@ -197,6 +181,7 @@ const DrawerContentAuth = (
   const {t} = useTranslation();
   const {user} = useSelector((state: any) => state.user);
   const {isDark, handleIsDark} = useData();
+  const dispatch = useDispatch();
   const [active, setActive] = useState('Home');
   const {assets, colors, gradients, sizes} = useTheme();
   const labelColor = colors.text;
@@ -283,6 +268,10 @@ const DrawerContentAuth = (
     }
   };
 
+  const signOutHandler = async () => {
+    signOutUser()(dispatch);
+  };
+
   const screens = getScreens();
 
   return (
@@ -349,6 +338,30 @@ const DrawerContentAuth = (
           marginVertical={sizes.sm}
           gradient={gradients.menu}
         />
+
+        <Button
+          row
+          justify="flex-start"
+          marginBottom={sizes.s}
+          onPress={signOutHandler}>
+          <Block
+            flex={0}
+            radius={6}
+            align="center"
+            justify="center"
+            width={sizes.md}
+            height={sizes.md}
+            marginRight={sizes.s}>
+            <MaterialCommunityIcons
+              name="logout"
+              size={22}
+              color={isDark ? colors.white : colors.dark}
+            />
+          </Block>
+          <Text p color={labelColor}>
+            Sign Out
+          </Text>
+        </Button>
 
         <Block row justify="space-between" marginTop={sizes.sm}>
           <Text color={labelColor}>{t('darkMode')}</Text>

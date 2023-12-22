@@ -59,6 +59,17 @@ export const userReducer = createReducer(initialState, (builder) => {
       state.errorCode = action.payload.status;
       state.error = action.payload.data.message;
     })
+    .addCase('USER_SIGN_OUT_REQUEST', (state) => {
+      state.loading = true;
+    })
+    .addCase('USER_SIGN_OUT_SUCCESS', (state) => {
+      state.loading = false;
+      state.isAuthenticated = false;
+      state.user = {};
+    })
+    .addCase('USER_SIGN_OUT_FAILED', (state) => {
+      state.loading = false;
+    })
     .addCase('updateProfileRequest', (state) => {
       state.loading = true;
     })

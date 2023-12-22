@@ -148,6 +148,25 @@ export const signInUser =
     }
   };
 
+export const signOutUser = () => async (dispatch: Dispatch<any>) => {
+  try {
+    dispatch({
+      type: 'USER_SIGN_OUT_REQUEST',
+    });
+
+    await SecureStore.setItemAsync(TOKEN, '');
+
+    dispatch({
+      type: 'USER_SIGN_OUT_SUCCESS',
+      payload: {},
+    });
+  } catch (error) {
+    dispatch({
+      type: 'USER_SIGN_OUT_FAILED',
+    });
+  }
+};
+
 export const updatePassword =
   (oldPassword: string, newPassword: string): any =>
   async (dispatch: Dispatch<any>) => {
