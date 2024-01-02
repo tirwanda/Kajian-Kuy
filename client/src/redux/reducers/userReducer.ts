@@ -33,7 +33,7 @@ export const userReducer = createReducer(initialState, (builder) => {
       state.loading = true;
       state.isAuthenticated = false;
     })
-    .addCase('userLoadSuccess', (state, action: any) => {
+    .addCase('USER_LOAD_SUCCESS', (state, action: any) => {
       state.loading = false;
       state.isAuthenticated = true;
       state.user = action.payload;
@@ -73,7 +73,7 @@ export const userReducer = createReducer(initialState, (builder) => {
     .addCase('updateProfileRequest', (state) => {
       state.loading = true;
     })
-    .addCase('updateProfileSuccess', (state, action: any) => {
+    .addCase('UPDATE_PROFILE_SUCCESS', (state, action: any) => {
       state.loading = false;
       state.user = action.payload.user;
       state.response.status = action.payload.responseStatus;

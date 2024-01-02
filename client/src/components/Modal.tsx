@@ -1,12 +1,17 @@
 import React from 'react';
-import {StyleSheet, Modal as RNModal, ViewStyle, Platform} from 'react-native';
+import {
+  StyleSheet,
+  Modal as RNModal,
+  ViewStyle,
+  Platform,
+  Pressable,
+  View,
+} from 'react-native';
 
-import {useTheme} from '../hooks';
+import {useData, useTheme} from '../hooks';
 import {IModalProps} from '../constants/types';
 
 import Block from './Block';
-import Button from './Button';
-import Image from './Image';
 
 const Modal = ({
   id = 'Modal',
@@ -15,12 +20,27 @@ const Modal = ({
   onRequestClose,
   ...props
 }: IModalProps) => {
-  const {assets, colors, sizes} = useTheme();
+  const {colors, sizes} = useTheme();
   const modalStyles = StyleSheet.flatten([style, {}]) as ViewStyle;
+  const {isDark} = useData();
+  const {setModalChannel} = useData();
 
   // generate component testID or accessibilityLabel based on Platform.OS
   const modalID =
     Platform.OS === 'android' ? {accessibilityLabel: id} : {testID: id};
+  const styles = StyleSheet.create({
+    overlay: {
+      ...StyleSheet.absoluteFillObject,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    divider: {
+      borderBottomWidth: 4,
+      borderBottomColor: isDark ? colors.white : colors.dark,
+      width: 40,
+      alignSelf: 'center',
+      borderRadius: 4,
+    },
+  });
 
   return (
     <RNModal
@@ -30,23 +50,24 @@ const Modal = ({
       style={modalStyles}
       animationType="slide"
       onRequestClose={onRequestClose}>
-      <Block justify="flex-end">
-        <Block safe card flex={0} color="rgba(0,0,0,0.8)">
-          <Button
-            top={0}
-            right={0}
-            position="absolute"
-            onPress={() => onRequestClose?.()}>
-            <Image source={assets.close} color={colors.white} />
-          </Button>
+      <Pressable onPress={() => setModalChannel(false)} style={styles.overlay}>
+        <Block justify="flex-end">
           <Block
+            safe
+            card
             flex={0}
-            marginTop={sizes.xxl}
-            paddingHorizontal={sizes.padding}>
-            {children}
+            color={isDark ? colors.dark : colors.light}
+            style={{borderBottomLeftRadius: 0, borderBottomRightRadius: 0}}>
+            <View style={styles.divider} />
+            <Block
+              flex={0}
+              marginTop={sizes.sm}
+              paddingHorizontal={sizes.padding}>
+              {children}
+            </Block>
           </Block>
         </Block>
-      </Block>
+      </Pressable>
     </RNModal>
   );
 };

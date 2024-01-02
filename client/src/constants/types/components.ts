@@ -2,6 +2,7 @@ import * as React from 'react';
 import {
   Animated,
   ColorValue,
+  GestureResponderEvent,
   ImageProps,
   ImageStyle,
   KeyboardAvoidingViewProps,
@@ -652,6 +653,7 @@ export interface IModalProps extends ModalProps {
    * @see https://reactnative.dev/docs/view#style
    */
   style?: ViewStyle;
+  onRequestClose?: (event: GestureResponderEvent) => void | undefined;
 }
 
 /**

@@ -117,6 +117,8 @@ export interface IUseData {
   setTrendingChannels: (data?: IChannels[]) => void;
   allChannels: IChannels[];
   setAllChannels: (data?: IChannels[]) => void;
+  modalChannel: boolean;
+  setModalChannel: (data?: boolean) => void;
 }
 
 export interface ITranslate {

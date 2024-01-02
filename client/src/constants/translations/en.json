@@ -164,6 +164,25 @@
     "bioPlaceholder": "Enter your bio",
     "editProfile": "Edit Profile"
   },
+  "channel": {
+    "title": "Channel",
+    "posts": "Posts",
+    "subscribers": "Followers",
+    "register": "Create Channel",
+    "channelName": "Channel Name",
+    "channelNamePlaceholder": "Enter your channel name",
+    "descriptionPlaceHolder": "Enter your channel description",
+    "country": "Country",
+    "countryPlaceholder": "Enter your country",
+    "city": "City",
+    "cityPlaceholder": "Enter your city",
+    "appearance": "How Your'll Appear",
+    "about": "About",
+    "description": "Description",
+    "share": "Share",
+    "submit": "Submit",
+    "shareMessage": "Hey! Check out this channel on Kajian Kuy: "
+  },
   "pro": {
     "title": "Soft UI PRO",
     "alert": "This feature is available in PRO version",

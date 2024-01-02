@@ -1,15 +1,23 @@
 import React, {useCallback, useState} from 'react';
 
 import {useData, useTheme, useTranslation} from '../hooks';
-import {Block, Button, Image, Input, Text} from '../components';
+import {Block, Button, Image, Input, Modal, Text} from '../components';
 import {useSelector} from 'react-redux';
+import {FlatList} from 'react-native';
 
 const Channels = () => {
   const {t} = useTranslation();
   const [tab, setTab] = useState<number>(0);
-  const {followingChannels, trendingChannels, allChannels} = useData();
+  const {
+    followingChannels,
+    trendingChannels,
+    allChannels,
+    modalChannel,
+    setModalChannel,
+  } = useData();
   const [channels, setChannels] = useState(allChannels);
   const {assets, colors, fonts, gradients, sizes} = useTheme();
+  const {isDark} = useData();
 
   const {isAuthenticated} = useSelector((state: any) => state.user);
 
@@ -137,6 +145,21 @@ const Channels = () => {
           </Block>
         ))}
       </Block>
+      <Modal
+        visible={modalChannel}
+        onRequestClose={() => setModalChannel(false)}>
+        <FlatList
+          keyExtractor={(index) => `${index}`}
+          data={['01', '02']}
+          renderItem={({item}) => (
+            <Button row justify="flex-start" marginBottom={sizes.s} key={item}>
+              <Text p semibold color={isDark ? colors.white : colors.dark}>
+                {item}
+              </Text>
+            </Button>
+          )}
+        />
+      </Modal>
     </Block>
   );
 };

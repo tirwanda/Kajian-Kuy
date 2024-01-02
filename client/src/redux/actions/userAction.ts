@@ -50,7 +50,7 @@ export const updateProfile =
         },
       );
 
-      dispatch({type: 'updateProfileSuccess', payload: response.data});
+      dispatch({type: 'UPDATE_PROFILE_SUCCESS', payload: response.data});
       const user = JSON.stringify(response.data.user);
       await SecureStore.setItemAsync(USER, user);
     } catch (error: any) {
@@ -104,7 +104,7 @@ export const loadUser = () => async (dispatch: Dispatch<any>) => {
       });
 
       dispatch({
-        type: 'userLoadSuccess',
+        type: 'USER_LOAD_SUCCESS',
         payload: {
           user: data.user,
           token,

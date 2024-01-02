@@ -14,6 +14,7 @@ import {
   Notifications,
   ChangePassword,
   Channels,
+  CreateChannel,
 } from '../screens';
 import {useScreenOptions, useTranslation} from '../hooks';
 import {useSelector} from 'react-redux';
@@ -39,7 +40,7 @@ export default () => {
         <Stack.Screen
           name="Channels"
           component={Channels}
-          options={screenOptions.channel}
+          options={screenOptions.channels}
         />
       )}
 
@@ -47,9 +48,15 @@ export default () => {
         <Stack.Screen
           name="Channels"
           component={Channels}
-          options={screenOptions.channelAuth}
+          options={screenOptions.channelsAuth}
         />
       )}
+
+      <Stack.Screen
+        name="CreateChannel"
+        component={CreateChannel}
+        options={{headerShown: false}}
+      />
 
       <Stack.Screen
         name="Components"

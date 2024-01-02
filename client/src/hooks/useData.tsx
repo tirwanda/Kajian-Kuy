@@ -34,6 +34,7 @@ export const DataProvider = ({children}: {children: React.ReactNode}) => {
   const [categories, setCategories] = useState<ICategory[]>(CATEGORIES);
   const [articles, setArticles] = useState<IArticle[]>(ARTICLES);
   const [article, setArticle] = useState<IArticle>();
+  const [modalChannel, setModalChannel] = useState<boolean>(false);
 
   const [followingChannels, setFollowingChannels] =
     useState<IChannels[]>(FOLLOWING_CHANNELS);
@@ -133,6 +134,8 @@ export const DataProvider = ({children}: {children: React.ReactNode}) => {
     setTrendingChannels,
     allChannels,
     setAllChannels,
+    modalChannel,
+    setModalChannel,
   };
 
   return (

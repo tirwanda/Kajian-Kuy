@@ -17,12 +17,15 @@ import useTheme from './useTheme';
 import Button from '../components/Button';
 import Block from '../components/Block';
 import {useSelector} from 'react-redux';
+// import {useData} from './useData';
 
 export default () => {
   const {t} = useTranslation();
   const {user} = useSelector((state: any) => state.user);
+  const {channel} = useSelector((state: any) => state.channel);
   const navigation = useNavigation();
   const {icons, colors, gradients, sizes} = useTheme();
+  // const {setModalChannel} = useData();
 
   const blankAvatar = require('../assets/images/blank-avatar.png');
 
@@ -136,11 +139,11 @@ export default () => {
       ),
     },
 
-    channel: {
+    channels: {
       ...menu,
       headerRight: () => null,
     },
-    channelAuth: {
+    channelsAuth: {
       ...menu,
       headerRight: () => (
         <Block row flex={0} align="center" marginRight={sizes.padding}>
@@ -150,16 +153,28 @@ export default () => {
                 DrawerActions.jumpTo('Screens', {screen: 'Profile'}),
               )
             }>
-            {user?.channel ? (
+            {user?.channel !== null ? (
               <Button row flex={0} justify="flex-end">
                 <Image
                   width={40}
                   height={40}
-                  source={user.avatar ? {uri: user.avatar} : blankAvatar}
+                  source={
+                    channel.channelPicture
+                      ? {uri: channel.channelPicture}
+                      : blankAvatar
+                  }
                 />
               </Button>
             ) : (
-              <Button row flex={0} justify="flex-end">
+              <Button
+                row
+                flex={0}
+                justify="flex-end"
+                onPress={() =>
+                  navigation.navigate('Screens', {
+                    screen: 'CreateChannel',
+                  })
+                }>
                 <MaterialCommunityIcons
                   name={'plus-box-multiple-outline'}
                   size={32}

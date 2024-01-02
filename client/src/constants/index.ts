@@ -5,3 +5,4 @@ export {THEME as dark} from './dark';
 // SecureStore keys
 export const USER = 'user';
 export const TOKEN = 'token';
+export const CHANNEL = 'channel';

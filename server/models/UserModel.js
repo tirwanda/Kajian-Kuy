@@ -20,6 +20,12 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			default: '',
 		},
+		channel: {
+			type: mongoose.Types.ObjectId,
+			ref: 'Channel',
+			unique: true,
+			default: null,
+		},
 		role: { type: String, default: 'ROLE_USER' },
 		title: { type: String, default: '' },
 		bio: { type: String, default: '' },

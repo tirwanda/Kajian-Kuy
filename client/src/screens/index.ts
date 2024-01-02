@@ -10,3 +10,4 @@ export {default as Register} from './Register';
 export {default as Signin} from './Signin';
 export {default as Settings} from './Settings';
 export {default as Channels} from './Channels';
+export {default as CreateChannel} from './CreateChannel';
