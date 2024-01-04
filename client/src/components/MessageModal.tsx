@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import Text from './Text';
-import {useTheme} from '../hooks';
+import {useData, useTheme} from '../hooks';
 import Button from './Button';
 import {
   MessageTypes,
@@ -28,6 +28,7 @@ const MessageModal = ({
   isProcesing,
 }: IMessageModalProps) => {
   const {colors, sizes} = useTheme();
+  const {isDark} = useData();
 
   let messageIconName: MessageIconType,
     messageThemeColor = colors.primary;
@@ -73,7 +74,7 @@ const MessageModal = ({
       right: 0,
     },
     modalView: {
-      backgroundColor: colors.white,
+      backgroundColor: isDark ? colors.dark : colors.white,
       width: '100%',
       alignItems: 'center',
       paddingTop: 45,
